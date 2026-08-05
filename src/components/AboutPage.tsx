@@ -513,61 +513,105 @@ export const AboutPage: React.FC<AboutPageProps> = ({
         </div>
       </section>
 
-      {/* ── SECTION 7: HUMAN TOUCH / TEAM & GUIDES SHOWCASE ───────────────────────── */}
-      <section className="py-8 sm:py-14 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-8 space-y-1">
-          <span className="text-[10px] sm:text-xs text-[#43563A] uppercase tracking-[0.2em] font-extrabold block">
+      {/* ── SECTION 7: FULL-BLEED 2-ROW UNLIMITED AUTO-SCROLLING MARQUEE GALLERY ───────────────── */}
+      <section className="py-12 sm:py-20 w-full overflow-hidden bg-[#FAF9F5] border-t border-b border-[#E5E7EB]">
+        
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10 space-y-2 px-4">
+          <span className="text-[10px] sm:text-xs text-[#43563A] uppercase tracking-[0.25em] font-extrabold block">
             CON NGƯỜI ANGEL ONE TRAVEL
           </span>
-          <h2 className="text-xl sm:text-3xl font-black text-[#111827] tracking-tight">
+          <h2 className="text-2xl sm:text-4xl font-black text-[#111827] tracking-tight">
             Những con người đứng sau mỗi chuyến đi
           </h2>
-          <p className="text-xs text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+          <p className="text-xs sm:text-sm text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
             Mỗi hành trình là sự phối hợp chặt chẽ giữa 4 nhóm nhân sự giàu kinh nghiệm và tâm huyết.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-[#FAF9F5] border border-[#E5E7EB] rounded-2xl p-5 shadow-2xs space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-[#DDE3D6] text-[#43563A] flex items-center justify-center font-bold">
-              <Compass size={20} />
+        {/* 2-Row Unlimited Scroll Container */}
+        <div className="space-y-4 sm:space-y-6 w-full overflow-hidden relative">
+          
+          {/* Subtle Side Fades for Seamless Infinite Look */}
+          <div className="absolute top-0 bottom-0 left-0 w-12 sm:w-24 bg-gradient-to-r from-[#FAF9F5] to-transparent z-20 pointer-events-none" />
+          <div className="absolute top-0 bottom-0 right-0 w-12 sm:w-24 bg-gradient-to-l from-[#FAF9F5] to-transparent z-20 pointer-events-none" />
+
+          {/* ROW 1: Auto-scrolls CONTINUOUSLY TO THE RIGHT */}
+          <div className="flex overflow-hidden select-none">
+            <div className="animate-marquee-right flex gap-4 sm:gap-6">
+              {[
+                { title: "Biển Mỹ Khê · Đà Nẵng", tag: "Cảnh quan", image: "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=80" },
+                { title: "Đội Xe DCar Limousine VIP", tag: "Xe vận chuyển", image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80" },
+                { title: "Tư Vấn Kịch Bản Lịch Trình", tag: "Tư vấn viên", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" },
+                { title: "Khách Du Lịch Trải Nghiệm", tag: "Khách du lịch", image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80" },
+                { title: "Phố Cổ Hội An Di Sản", tag: "Cảnh quan", image: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80" },
+                { title: "Đội Xe 16–45 Chỗ Đời Mới", tag: "Xe vận chuyển", image: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80" },
+                { title: "Hướng Dẫn Viên Nhiệt Tình", tag: "Hướng dẫn viên", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" },
+                { title: "Đoàn Khách Hàng Hạnh Phúc", tag: "Khách du lịch", image: "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=800&q=80" },
+                
+                // Duplicated set for smooth infinite loop
+                { title: "Biển Mỹ Khê · Đà Nẵng", tag: "Cảnh quan", image: "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=800&q=80" },
+                { title: "Đội Xe DCar Limousine VIP", tag: "Xe vận chuyển", image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=800&q=80" },
+                { title: "Tư Vấn Kịch Bản Lịch Trình", tag: "Tư vấn viên", image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" },
+                { title: "Khách Du Lịch Trải Nghiệm", tag: "Khách du lịch", image: "https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=800&q=80" },
+                { title: "Phố Cổ Hội An Di Sản", tag: "Cảnh quan", image: "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=800&q=80" },
+                { title: "Đội Xe 16–45 Chỗ Đời Mới", tag: "Xe vận chuyển", image: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=800&q=80" },
+                { title: "Hướng Dẫn Viên Nhiệt Tình", tag: "Hướng dẫn viên", image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" },
+                { title: "Đoàn Khách Hàng Hạnh Phúc", tag: "Khách du lịch", image: "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?auto=format&fit=crop&w=800&q=80" },
+              ].map((item, idx) => (
+                <div
+                  key={idx}
+                  className="relative w-64 sm:w-80 h-44 sm:h-52 rounded-2xl overflow-hidden bg-white border border-[#E5E7EB] shadow-xs group flex-shrink-0 cursor-pointer"
+                >
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
+                  />
+                </div>
+              ))}
             </div>
-            <h3 className="font-extrabold text-base text-[#111827]">Tư vấn viên</h3>
-            <p className="text-xs text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
-              Tiếp nhận nhu cầu và xây dựng kịch bản tối ưu nhất cho đoàn.
-            </p>
           </div>
 
-          <div className="bg-[#FAF9F5] border border-[#E5E7EB] rounded-2xl p-5 shadow-2xs space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-[#DDE3D6] text-[#43563A] flex items-center justify-center font-bold">
-              <ShieldCheck size={20} />
+          {/* ROW 2: Auto-scrolls CONTINUOUSLY TO THE LEFT */}
+          <div className="flex overflow-hidden select-none">
+            <div className="animate-marquee-left flex gap-4 sm:gap-6">
+              {[
+                { title: "Hoàng Hôn Bãi Biển Quy Nhơn", tag: "Cảnh quan", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" },
+                { title: "Đội Vận Chuyển Đón Tiễn", tag: "Xe vận chuyển", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80" },
+                { title: "Bộ Phận Điều Hành Tour", tag: "Đội ngũ điều hành", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80" },
+                { title: "Nhóm Bạn Thân Check-in", tag: "Khách du lịch", image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=800&q=80" },
+                { title: "Quảng Bình Kỳ Quan Hang Động", tag: "Cảnh quan", image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" },
+                { title: "Xe Du Lịch 7 Chỗ Đời Mới", tag: "Xe vận chuyển", image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" },
+                { title: "Hỗ Trợ Đoàn Khách 24/7", tag: "Hỗ trợ 24/7", image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80" },
+                { title: "Đoàn Doanh Nghiệp MICE", tag: "Khách du lịch", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80" },
+                
+                // Duplicated set for smooth infinite loop
+                { title: "Hoàng Hôn Bãi Biển Quy Nhơn", tag: "Cảnh quan", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" },
+                { title: "Đội Vận Chuyển Đón Tiễn", tag: "Xe vận chuyển", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80" },
+                { title: "Bộ Phận Điều Hành Tour", tag: "Đội ngũ điều hành", image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80" },
+                { title: "Nhóm Bạn Thân Check-in", tag: "Khách du lịch", image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=800&q=80" },
+                { title: "Quảng Bình Kỳ Quan Hang Động", tag: "Cảnh quan", image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" },
+                { title: "Xe Du Lịch 7 Chỗ Đời Mới", tag: "Xe vận chuyển", image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=800&q=80" },
+                { title: "Hỗ Trợ Đoàn Khách 24/7", tag: "Hỗ trợ 24/7", image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80" },
+                { title: "Đoàn Doanh Nghiệp MICE", tag: "Khách du lịch", image: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=800&q=80" },
+              ].map((item, idx) => (
+                <div
+                  key={idx}
+                  className="relative w-64 sm:w-80 h-44 sm:h-52 rounded-2xl overflow-hidden bg-white border border-[#E5E7EB] shadow-xs group flex-shrink-0 cursor-pointer"
+                >
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
+                  />
+                </div>
+              ))}
             </div>
-            <h3 className="font-extrabold text-base text-[#111827]">Đội ngũ điều hành</h3>
-            <p className="text-xs text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
-              Chuẩn bị xe, phòng khách sạn và kiểm soát chất lượng dịch vụ.
-            </p>
           </div>
 
-          <div className="bg-[#FAF9F5] border border-[#E5E7EB] rounded-2xl p-5 shadow-2xs space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-[#DDE3D6] text-[#43563A] flex items-center justify-center font-bold">
-              <Flag size={20} />
-            </div>
-            <h3 className="font-extrabold text-base text-[#111827]">Hướng dẫn viên</h3>
-            <p className="text-xs text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
-              Đồng hành trực tiếp, truyền cảm hứng và chăm sóc đoàn trên đường tour.
-            </p>
-          </div>
-
-          <div className="bg-[#FAF9F5] border border-[#E5E7EB] rounded-2xl p-5 shadow-2xs space-y-2">
-            <div className="w-10 h-10 rounded-xl bg-[#DDE3D6] text-[#43563A] flex items-center justify-center font-bold">
-              <HeartHandshake size={20} />
-            </div>
-            <h3 className="font-extrabold text-base text-[#111827]">Chăm sóc khách hàng</h3>
-            <p className="text-xs text-[#6B7280]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
-              Hỗ trợ 24/7 trước, trong và sau khi chuyến đi kết thúc.
-            </p>
-          </div>
         </div>
+
       </section>
 
       {/* ── SECTION 8: THÔNG TIN PHÁP LÝ DOANH NGHIỆP MINH BẠCH ──────────────────── */}
