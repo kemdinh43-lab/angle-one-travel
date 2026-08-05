@@ -14,6 +14,7 @@ import { CtaSection } from "../components/CtaSection";
 import { Footer } from "../components/Footer";
 import { TourPage } from "../components/TourPage";
 import { BlogPage } from "../components/BlogPage";
+import { AboutPage } from "../components/AboutPage";
 
 import { QuoteModal } from "../components/QuoteModal";
 import { TourDetailModal } from "../components/TourDetailModal";
@@ -22,7 +23,7 @@ import { CustomBuilderModal } from "../components/CustomBuilderModal";
 import { Tour } from "../types/travel";
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<"home" | "tours" | "blog">("home");
+  const [currentView, setCurrentView] = useState<"home" | "tours" | "blog" | "about">("home");
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [isCustomOpen, setIsCustomOpen] = useState(false);
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
@@ -33,7 +34,7 @@ export default function App() {
   };
 
   const handleNavigate = (view: string) => {
-    if (view === "tours" || view === "blog" || view === "home") {
+    if (view === "tours" || view === "blog" || view === "home" || view === "about") {
       setCurrentView(view as any);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
@@ -109,8 +110,15 @@ export default function App() {
             onOpenCustom={() => setIsCustomOpen(true)}
             onBackToHome={() => handleNavigate("home")}
           />
+        ) : currentView === "about" ? (
+          /* Dedicated Editorial About Us Page (Matching Moodboard 100%) */
+          <AboutPage
+            onNavigate={handleNavigate}
+            onOpenQuote={() => handleOpenQuoteForTour()}
+            onOpenCustom={() => setIsCustomOpen(true)}
+          />
         ) : (
-          /* Dedicated Blog & Articles Page (Matching Reference Screenshot 100%) */
+          /* Dedicated Blog & Articles Page */
           <BlogPage
             onBackToHome={() => handleNavigate("home")}
             onOpenQuote={() => handleOpenQuoteForTour()}

@@ -26,7 +26,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView = "home", onNavigate
 
   const handleNavClick = (viewOrId: string) => {
     setIsMobileMenuOpen(false);
-    if (viewOrId === "blog" || viewOrId === "tours") {
+    if (viewOrId === "blog" || viewOrId === "tours" || viewOrId === "about") {
       if (onNavigate) {
         onNavigate(viewOrId);
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -99,22 +99,34 @@ export const Header: React.FC<HeaderProps> = ({ currentView = "home", onNavigate
               handleNavClick("tours");
             }}
             className={`transition-colors cursor-pointer ${
-              isScrolled ? "hover:text-[#43563A]" : "hover:text-white"
+              currentView === "tours" && !isScrolled
+                ? "text-white underline underline-offset-4 font-bold"
+                : currentView === "tours" && isScrolled
+                ? "text-[#43563A] font-bold"
+                : isScrolled
+                ? "hover:text-[#43563A]"
+                : "hover:text-white"
             }`}
           >
             Tour du lịch
           </a>
           <a
-            href="#custom"
+            href="#about"
             onClick={(e) => {
               e.preventDefault();
-              handleNavClick("custom");
+              handleNavClick("about");
             }}
             className={`transition-colors cursor-pointer ${
-              isScrolled ? "hover:text-[#43563A]" : "hover:text-white"
+              currentView === "about" && !isScrolled
+                ? "text-white underline underline-offset-4 font-bold"
+                : currentView === "about" && isScrolled
+                ? "text-[#43563A] font-bold"
+                : isScrolled
+                ? "hover:text-[#43563A]"
+                : "hover:text-white"
             }`}
           >
-            Tour riêng
+            Về chúng tôi
           </a>
           <a
             href="#services"
@@ -127,18 +139,6 @@ export const Header: React.FC<HeaderProps> = ({ currentView = "home", onNavigate
             }`}
           >
             Dịch vụ
-          </a>
-          <a
-            href="#corporate"
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick("corporate");
-            }}
-            className={`transition-colors cursor-pointer ${
-              isScrolled ? "hover:text-[#43563A]" : "hover:text-white"
-            }`}
-          >
-            Doanh nghiệp
           </a>
           <a
             href="#destinations"
@@ -158,11 +158,11 @@ export const Header: React.FC<HeaderProps> = ({ currentView = "home", onNavigate
               e.preventDefault();
               handleNavClick("blog");
             }}
-            className={`transition-colors cursor-pointer font-bold ${
+            className={`transition-colors cursor-pointer ${
               currentView === "blog" && !isScrolled
-                ? "text-white underline underline-offset-4"
+                ? "text-white underline underline-offset-4 font-bold"
                 : currentView === "blog" && isScrolled
-                ? "text-[#43563A]"
+                ? "text-[#43563A] font-bold"
                 : isScrolled
                 ? "hover:text-[#43563A]"
                 : "hover:text-white"
@@ -221,10 +221,10 @@ export const Header: React.FC<HeaderProps> = ({ currentView = "home", onNavigate
         <div className="lg:hidden bg-white text-[#22251F] border-b border-[#D9D8D0] p-6 space-y-4 animate-in slide-in-from-top-2">
           <div className="flex flex-col gap-3 font-medium text-sm text-[#464A43]">
             <a href="#tours" onClick={() => handleNavClick("tours")} className="text-left py-1 hover:text-[#43563A]">Tour du lịch</a>
-            <a href="#custom" onClick={() => handleNavClick("custom")} className="text-left py-1 hover:text-[#43563A]">Tour riêng</a>
+            <a href="#about" onClick={() => handleNavClick("about")} className="text-left py-1 font-bold text-[#43563A]">Về chúng tôi</a>
             <a href="#services" onClick={() => handleNavClick("services")} className="text-left py-1 hover:text-[#43563A]">Dịch vụ</a>
             <a href="#destinations" onClick={() => handleNavClick("destinations")} className="text-left py-1 hover:text-[#43563A]">Điểm đến</a>
-            <a href="#blog" onClick={() => handleNavClick("blog")} className="text-left py-1 font-bold text-[#43563A]">Cẩm nang & Blog</a>
+            <a href="#blog" onClick={() => handleNavClick("blog")} className="text-left py-1 hover:text-[#43563A]">Cẩm nang</a>
           </div>
 
           <div className="pt-3 border-t border-[#D9D8D0] flex gap-3">
