@@ -7,7 +7,7 @@ interface HeroProps {
   onOpenCustom: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onOpenCustom }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenQuote }) => {
   return (
     <section className="relative w-full overflow-hidden bg-[#1a2316]" style={{ minHeight: "100svh", fontFamily: "'Manrope', sans-serif" }}>
       {/* Background Image with Dark Vignette */}
@@ -20,56 +20,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuote, onOpenCustom }) => {
       {/* Subtle Dark Overlays for maximum contrast & breathing space */}
       <div className="absolute inset-0 bg-black/40" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/60" />
-
-      {/* 4 Floating Hotspot Badges (Positioned cleanly in corners to prevent overlap with headline) */}
-      
-      {/* Top Left Hotspot */}
-      <div
-        onClick={onOpenCustom}
-        className="absolute top-[22%] left-[4%] lg:left-[8%] z-20 hidden md:flex items-center gap-2.5 bg-black/30 backdrop-blur-md border border-white/25 rounded-full px-4 py-1.5 text-white text-xs font-medium cursor-pointer shadow-lg hover:bg-white/20 hover:scale-105 transition-all duration-300 group"
-      >
-        <span>Biển Mỹ Khê</span>
-        <div className="flex items-center gap-1">
-          <span className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] animate-ping" />
-          <div className="w-6 h-px bg-white/40 group-hover:w-8 transition-all" />
-        </div>
-      </div>
-
-      {/* Top Right Hotspot */}
-      <div
-        onClick={onOpenCustom}
-        className="absolute top-[26%] right-[4%] lg:right-[8%] z-20 hidden md:flex items-center gap-2.5 bg-black/30 backdrop-blur-md border border-white/25 rounded-full px-4 py-1.5 text-white text-xs font-medium cursor-pointer shadow-lg hover:bg-white/20 hover:scale-105 transition-all duration-300 group"
-      >
-        <div className="flex items-center gap-1">
-          <div className="w-6 h-px bg-white/40 group-hover:w-8 transition-all" />
-          <span className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] animate-ping" />
-        </div>
-        <span>Đỉnh Bà Nà Hills</span>
-      </div>
-
-      {/* Bottom Left Hotspot */}
-      <div
-        onClick={onOpenCustom}
-        className="absolute bottom-[28%] left-[4%] lg:left-[10%] z-20 hidden md:flex items-center gap-2.5 bg-black/30 backdrop-blur-md border border-white/25 rounded-full px-4 py-1.5 text-white text-xs font-medium cursor-pointer shadow-lg hover:bg-white/20 hover:scale-105 transition-all duration-300 group"
-      >
-        <span>Phố Cổ Hội An</span>
-        <div className="flex items-center gap-1">
-          <span className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] animate-ping" />
-          <div className="w-6 h-px bg-white/40 group-hover:w-8 transition-all" />
-        </div>
-      </div>
-
-      {/* Bottom Right Hotspot */}
-      <div
-        onClick={onOpenCustom}
-        className="absolute bottom-[30%] right-[4%] lg:right-[10%] z-20 hidden md:flex items-center gap-2.5 bg-black/30 backdrop-blur-md border border-white/25 rounded-full px-4 py-1.5 text-white text-xs font-medium cursor-pointer shadow-lg hover:bg-white/20 hover:scale-105 transition-all duration-300 group"
-      >
-        <div className="flex items-center gap-1">
-          <div className="w-6 h-px bg-white/40 group-hover:w-8 transition-all" />
-          <span className="w-1.5 h-1.5 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)] animate-ping" />
-        </div>
-        <span>Cố Đô Huế Di Sản</span>
-      </div>
 
       {/* Main Hero Content */}
       <div className="relative z-10 flex flex-col justify-between h-full min-h-[100svh] max-w-[1400px] mx-auto px-5 md:px-10 pt-28 pb-8">
