@@ -16,6 +16,7 @@ import { TourPage } from "../components/TourPage";
 import { BlogPage } from "../components/BlogPage";
 import { AboutPage } from "../components/AboutPage";
 import { TourDetailPage } from "../components/TourDetailPage";
+import { DestinationPage } from "../components/DestinationPage";
 
 import { QuoteModal } from "../components/QuoteModal";
 import { TourDetailModal } from "../components/TourDetailModal";
@@ -24,7 +25,7 @@ import { CustomBuilderModal } from "../components/CustomBuilderModal";
 import { Tour } from "../types/travel";
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<"home" | "tours" | "blog" | "about" | "tour-detail">("home");
+  const [currentView, setCurrentView] = useState<"home" | "tours" | "blog" | "about" | "tour-detail" | "destinations">("home");
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [isCustomOpen, setIsCustomOpen] = useState(false);
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
@@ -39,7 +40,7 @@ export default function App() {
   };
 
   const handleNavigate = (view: string) => {
-    if (view === "tours" || view === "blog" || view === "home" || view === "about" || view === "tour-detail") {
+    if (view === "tours" || view === "blog" || view === "home" || view === "about" || view === "tour-detail" || view === "destinations") {
       setCurrentView(view as any);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
@@ -136,6 +137,9 @@ export default function App() {
             onOpenQuote={(tourName) => handleOpenQuoteForTour(tourName)}
             onNavigateToTour={(tourId) => handleNavigate("tour-detail")}
           />
+        ) : currentView === "destinations" ? (
+          /* Dedicated Infinite Destination Slider Page (100% Matching HTML Reference) */
+          <DestinationPage onOpenQuote={() => handleOpenQuoteForTour()} />
         ) : (
           /* Dedicated Blog & Articles Page */
           <BlogPage

@@ -26,7 +26,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView = "home", onNavigate
 
   const handleNavClick = (viewOrId: string) => {
     setIsMobileMenuOpen(false);
-    if (viewOrId === "blog" || viewOrId === "tours" || viewOrId === "about") {
+    if (viewOrId === "blog" || viewOrId === "tours" || viewOrId === "about" || viewOrId === "destinations") {
       if (onNavigate) {
         onNavigate(viewOrId);
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -124,7 +124,11 @@ export const Header: React.FC<HeaderProps> = ({ currentView = "home", onNavigate
               e.preventDefault();
               handleNavClick("destinations");
             }}
-            className="transition-colors cursor-pointer hover:text-white"
+            className={`transition-colors cursor-pointer ${
+              currentView === "destinations"
+                ? "text-white underline underline-offset-4 font-bold"
+                : "hover:text-white"
+            }`}
           >
             Điểm đến
           </a>
