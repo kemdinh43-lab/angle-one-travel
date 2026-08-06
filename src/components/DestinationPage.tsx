@@ -519,6 +519,16 @@ export const DestinationPage: React.FC<DestinationPageProps> = ({ onOpenQuote })
             grid-template-rows: minmax(300px, 50vh) auto;
             padding-bottom: 24px;
           }
+          .dest-top-cta {
+            top: auto;
+            bottom: 24px;
+            right: 18px;
+            margin-top: 0;
+            font-size: 15px;
+            min-height: 44px;
+            padding: 0 22px;
+            z-index: 30;
+          }
           .dest-content {
             grid-template-columns: 1fr;
           }
@@ -555,8 +565,12 @@ export const DestinationPage: React.FC<DestinationPageProps> = ({ onOpenQuote })
             padding: 0 16px 20px;
           }
           .dest-top-cta {
-            top: 16px;
+            top: auto;
+            bottom: 16px;
             right: 16px;
+            font-size: 14px;
+            min-height: 42px;
+            padding: 0 20px;
           }
           .dest-gallery-wrap {
             margin-left: -16px;
@@ -590,12 +604,6 @@ export const DestinationPage: React.FC<DestinationPageProps> = ({ onOpenQuote })
           .dest-circle {
             width: 44px;
             height: 44px;
-          }
-          .dest-explore {
-            min-height: 46px;
-            padding: 0 24px;
-            font-size: 16px;
-            margin-top: 18px;
           }
         }
       `}</style>
