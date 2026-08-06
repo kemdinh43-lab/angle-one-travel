@@ -614,53 +614,37 @@ export const AboutPage: React.FC<AboutPageProps> = ({
 
       </section>
 
-      {/* ── SECTION 8: THÔNG TIN PHÁP LÝ DOANH NGHIỆP MINH BẠCH ──────────────────── */}
-      <section className="py-10 sm:py-16 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
-        <div className="bg-[#FAF9F5] border border-[#E5E7EB] rounded-2xl sm:rounded-3xl p-6 sm:p-10 shadow-2xs max-w-4xl mx-auto space-y-6">
-          
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E5E7EB] pb-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#43563A] text-white flex items-center justify-center shadow-xs">
-                <FileCheck2 size={20} />
-              </div>
-              <div>
-                <h3 className="font-black text-base sm:text-lg text-[#111827]">Thông tin doanh nghiệp minh bạch</h3>
-                <span className="text-xs text-[#6B7280]">Giấy phép đăng ký kinh doanh & Pháp lý chính thức</span>
-              </div>
+      {/* ── SECTION 8: GIẤY PHÉP & CHỨNG CHỈ KINH DOANH ──────────────────────────── */}
+      <section className="py-12 sm:py-20 max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8">
+        {/* Title */}
+        <div className="text-center mb-10 sm:mb-14">
+          <p className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-bold text-[#43563A] mb-2">
+            Pháp lý & Chứng nhận
+          </p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-[#111827] tracking-tight">
+            Giấy phép kinh doanh chính thức
+          </h2>
+        </div>
+
+        {/* 3 License Images — horizontal scroll on mobile, 3 cols on desktop */}
+        <div className="flex sm:grid sm:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto overflow-x-auto pb-3 sm:pb-0 snap-x snap-mandatory scrollbar-none">
+          {[
+            "/licenses/license-1.webp",
+            "/licenses/license-2.webp",
+            "/licenses/license-3.webp",
+          ].map((src, i) => (
+            <div
+              key={i}
+              className="flex-none w-[78vw] sm:w-auto rounded-2xl overflow-hidden border border-[#E5E7EB] shadow-sm bg-white hover:shadow-md transition-shadow snap-start"
+            >
+              <img
+                src={src}
+                alt={`Giấy phép kinh doanh ${i + 1}`}
+                className="w-full h-auto object-contain"
+                loading="lazy"
+              />
             </div>
-
-            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#43563A] bg-[#DDE3D6] px-3 py-1 rounded-full w-fit">
-              <BadgeCheck size={14} /> Đã xác thực pháp lý
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-            <div className="bg-white p-3.5 rounded-xl border border-[#E5E7EB]">
-              <span className="text-[10px] text-[#6B7280] font-extrabold uppercase tracking-wider block mb-0.5">Tên doanh nghiệp chính thức</span>
-              <strong className="text-sm text-[#111827]">CÔNG TY TNHH ANGEL ONE TRAVEL</strong>
-            </div>
-
-            <div className="bg-white p-3.5 rounded-xl border border-[#E5E7EB]">
-              <span className="text-[10px] text-[#6B7280] font-extrabold uppercase tracking-wider block mb-0.5">Mã số thuế doanh nghiệp</span>
-              <strong className="text-base text-[#43563A] font-black">0402198423</strong>
-            </div>
-
-            <div className="bg-white p-3.5 rounded-xl border border-[#E5E7EB]">
-              <span className="text-[10px] text-[#6B7280] font-extrabold uppercase tracking-wider block mb-0.5">Người đại diện pháp luật</span>
-              <strong className="text-sm text-[#111827]">Đặng Thị Hồng Tiên</strong>
-            </div>
-
-            <div className="bg-white p-3.5 rounded-xl border border-[#E5E7EB]">
-              <span className="text-[10px] text-[#6B7280] font-extrabold uppercase tracking-wider block mb-0.5">Hotline / Điện thoại liên hệ</span>
-              <strong className="text-sm text-[#111827]">0768 643 446</strong>
-            </div>
-
-            <div className="bg-white p-3.5 rounded-xl border border-[#E5E7EB] sm:col-span-2">
-              <span className="text-[10px] text-[#6B7280] font-extrabold uppercase tracking-wider block mb-0.5">Địa chỉ trụ sở chính</span>
-              <strong className="text-xs sm:text-sm text-[#111827]">111/3 Nguyễn Công Trứ, Phường An Hải, TP. Đà Nẵng, Việt Nam</strong>
-            </div>
-          </div>
-
+          ))}
         </div>
       </section>
 

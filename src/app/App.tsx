@@ -64,6 +64,8 @@ export default function App() {
         currentView={currentView}
         onNavigate={handleNavigate}
         onOpenQuote={() => handleOpenQuoteForTour()}
+        logoDesktopUrl="/logo-horizontal.png"
+        logoMobileUrl="/logo-horizontal.png"
       />
 
       <main>

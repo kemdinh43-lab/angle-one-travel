@@ -5,9 +5,19 @@ interface HeaderProps {
   currentView?: string;
   onNavigate?: (view: string) => void;
   onOpenQuote: () => void;
+  logoUrl?: string;
+  logoDesktopUrl?: string;
+  logoMobileUrl?: string;
 }
 
-export const Header: React.FC<HeaderProps> = ({ currentView = "home", onNavigate, onOpenQuote }) => {
+export const Header: React.FC<HeaderProps> = ({
+  currentView = "home",
+  onNavigate,
+  onOpenQuote,
+  logoUrl,
+  logoDesktopUrl,
+  logoMobileUrl,
+}) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -45,6 +55,8 @@ export const Header: React.FC<HeaderProps> = ({ currentView = "home", onNavigate
     }
   };
 
+  const hasLogoImage = logoDesktopUrl || logoMobileUrl || logoUrl;
+
   return (
     <header
       className={`transition-all duration-300 z-50 ${
@@ -55,7 +67,7 @@ export const Header: React.FC<HeaderProps> = ({ currentView = "home", onNavigate
     >
       <div className="max-w-[1320px] mx-auto px-5 md:px-10 h-20 flex items-center justify-between">
         
-        {/* LOGO TEXT (Clean Minimalist Submerged Dark Aesthetic) */}
+        {/* LOGO LINK (Responsive Dual Logo: Square for Mobile, Horizontal for Desktop) */}
         <a
           href="#"
           onClick={(e) => {
@@ -65,17 +77,37 @@ export const Header: React.FC<HeaderProps> = ({ currentView = "home", onNavigate
           }}
           className="flex items-center gap-2.5 cursor-pointer text-left group"
         >
-          <div className="w-9 h-9 rounded-2xl bg-[#43563A] text-white flex items-center justify-center font-bold text-lg shadow-sm group-hover:scale-105 transition-transform">
-            A
-          </div>
-          <div>
-            <span className="font-extrabold text-base tracking-tight block leading-none text-white">
-              ANGEL ONE
-            </span>
-            <span className="text-[9px] uppercase tracking-widest font-semibold block leading-none mt-1 text-white/80">
-              TRAVEL - ĐÀ NẴNG
-            </span>
-          </div>
+          {hasLogoImage ? (
+            <>
+              {/* Mobile Logo (< lg) — horizontal logo */}
+              <img
+                src={logoMobileUrl || logoDesktopUrl || logoUrl}
+                alt="Angel One Travel"
+                className="block lg:hidden h-12 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform"
+              />
+
+              {/* Desktop Horizontal Logo (>= lg) */}
+              <img
+                src={logoDesktopUrl || logoMobileUrl || logoUrl}
+                alt="Angel One Travel"
+                className="hidden lg:block h-14 w-auto object-contain drop-shadow-md group-hover:scale-105 transition-transform"
+              />
+            </>
+          ) : (
+            <>
+              <div className="w-9 h-9 rounded-2xl bg-[#43563A] text-white flex items-center justify-center font-bold text-lg shadow-sm group-hover:scale-105 transition-transform">
+                A
+              </div>
+              <div>
+                <span className="font-extrabold text-base tracking-tight block leading-none text-white">
+                  ANGEL ONE
+                </span>
+                <span className="text-[9px] uppercase tracking-widest font-semibold block leading-none mt-1 text-white/80">
+                  TRAVEL - ĐÀ NẴNG
+                </span>
+              </div>
+            </>
+          )}
         </a>
 
         {/* DESKTOP NAVIGATION MENU (White / Submerged Light Typography Across Entire Site) */}
