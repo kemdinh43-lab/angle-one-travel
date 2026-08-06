@@ -146,7 +146,11 @@ export const Header: React.FC<HeaderProps> = ({
               e.preventDefault();
               handleNavClick("services");
             }}
-            className="transition-colors cursor-pointer hover:text-white"
+            className={`transition-colors cursor-pointer ${
+              currentView === "services"
+                ? "text-white underline underline-offset-4 font-bold"
+                : "hover:text-white"
+            }`}
           >
             Dịch vụ
           </a>
@@ -216,11 +220,11 @@ export const Header: React.FC<HeaderProps> = ({
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-[#111827]/95 backdrop-blur-lg text-white border-b border-white/10 p-6 space-y-4 animate-in slide-in-from-top-2">
           <div className="flex flex-col gap-3 font-medium text-sm text-white/90">
-            <a href="#tours" onClick={() => handleNavClick("tours")} className="text-left py-1 hover:text-white">Tour du lịch</a>
-            <a href="#about" onClick={() => handleNavClick("about")} className="text-left py-1 font-bold text-white">Về chúng tôi</a>
-            <a href="#services" onClick={() => handleNavClick("services")} className="text-left py-1 hover:text-white">Dịch vụ</a>
-            <a href="#destinations" onClick={() => handleNavClick("destinations")} className="text-left py-1 hover:text-white">Điểm đến</a>
-            <a href="#blog" onClick={() => handleNavClick("blog")} className="text-left py-1 hover:text-white">Cẩm nang</a>
+            <a href="#tours" onClick={() => handleNavClick("tours")} className={`text-left py-1 ${currentView === "tours" ? "font-bold text-white underline underline-offset-4" : "hover:text-white"}`}>Tour du lịch</a>
+            <a href="#about" onClick={() => handleNavClick("about")} className={`text-left py-1 ${currentView === "about" ? "font-bold text-white underline underline-offset-4" : "hover:text-white"}`}>Về chúng tôi</a>
+            <a href="#services" onClick={() => handleNavClick("services")} className={`text-left py-1 ${currentView === "services" ? "font-bold text-white underline underline-offset-4" : "hover:text-white"}`}>Dịch vụ</a>
+            <a href="#destinations" onClick={() => handleNavClick("destinations")} className={`text-left py-1 ${currentView === "destinations" ? "font-bold text-white underline underline-offset-4" : "hover:text-white"}`}>Điểm đến</a>
+            <a href="#blog" onClick={() => handleNavClick("blog")} className={`text-left py-1 ${currentView === "blog" ? "font-bold text-white underline underline-offset-4" : "hover:text-white"}`}>Cẩm nang</a>
           </div>
 
           <div className="pt-3 border-t border-white/10 flex gap-3">
