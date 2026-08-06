@@ -99,7 +99,12 @@ interface DestinationPageProps {
 export const DestinationPage: React.FC<DestinationPageProps> = ({ onOpenQuote }) => {
   const [current, setCurrent] = useState(0);
   const [virtualIndex, setVirtualIndex] = useState(DESTINATIONS.length);
-  const [isTransitioning, setIsTransitioning] = useState(true);
+
+  const currentRef = useRef(0);
+  const virtualIndexRef = useRef(DESTINATIONS.length);
+
+  currentRef.current = current;
+  virtualIndexRef.current = virtualIndex;
 
   const animatingRef = useRef(false);
   const touchStartXRef = useRef<number | null>(null);
@@ -138,57 +143,56 @@ export const DestinationPage: React.FC<DestinationPageProps> = ({ onOpenQuote })
     if (animatingRef.current) return;
     animatingRef.current = true;
 
-    setVirtualIndex((prevVIdx) => {
-      const nextVIdx = prevVIdx + step;
+    const prevVIdx = virtualIndexRef.current;
+    const prevCurrent = currentRef.current;
 
-      setCurrent((prevCurrent) => {
-        const nextCurrent = (prevCurrent + step + DESTINATIONS.length) % DESTINATIONS.length;
-        return nextCurrent;
-      });
+    const nextVIdx = prevVIdx + step;
+    const nextCurrent = (prevCurrent + step + DESTINATIONS.length) % DESTINATIONS.length;
 
-      setIsTransitioning(true);
-      updateTrackPosition(nextVIdx, true);
+    virtualIndexRef.current = nextVIdx;
+    currentRef.current = nextCurrent;
 
-      setTimeout(() => {
-        let normalizedVIdx = nextVIdx;
-        if (nextVIdx < DESTINATIONS.length) {
-          normalizedVIdx += DESTINATIONS.length;
-        } else if (nextVIdx >= DESTINATIONS.length * 2) {
-          normalizedVIdx -= DESTINATIONS.length;
-        }
+    setVirtualIndex(nextVIdx);
+    setCurrent(nextCurrent);
 
-        if (normalizedVIdx !== nextVIdx) {
-          setIsTransitioning(false);
-          setVirtualIndex(normalizedVIdx);
-          updateTrackPosition(normalizedVIdx, false);
-        }
+    updateTrackPosition(nextVIdx, true);
 
-        animatingRef.current = false;
-      }, 850);
+    setTimeout(() => {
+      let normalizedVIdx = nextVIdx;
+      if (nextVIdx < DESTINATIONS.length) {
+        normalizedVIdx += DESTINATIONS.length;
+      } else if (nextVIdx >= DESTINATIONS.length * 2) {
+        normalizedVIdx -= DESTINATIONS.length;
+      }
 
-      return nextVIdx;
-    });
+      if (normalizedVIdx !== nextVIdx) {
+        virtualIndexRef.current = normalizedVIdx;
+        setVirtualIndex(normalizedVIdx);
+        updateTrackPosition(normalizedVIdx, false);
+      }
+
+      animatingRef.current = false;
+    }, 850);
   }, [updateTrackPosition]);
 
   const goToOriginal = useCallback((targetOriginalIndex: number) => {
-    setCurrent((prevCurrent) => {
-      const forward = (targetOriginalIndex - prevCurrent + DESTINATIONS.length) % DESTINATIONS.length;
-      const backward = forward - DESTINATIONS.length;
-      const step = Math.abs(forward) <= Math.abs(backward) ? forward : backward;
+    if (animatingRef.current) return;
+    const prevCurrent = currentRef.current;
+    const forward = (targetOriginalIndex - prevCurrent + DESTINATIONS.length) % DESTINATIONS.length;
+    const backward = forward - DESTINATIONS.length;
+    const step = Math.abs(forward) <= Math.abs(backward) ? forward : backward;
 
-      if (step !== 0) {
-        move(step);
-      }
-      return prevCurrent;
-    });
+    if (step !== 0) {
+      move(step);
+    }
   }, [move]);
 
   // Initial alignment & window resize handler
   useEffect(() => {
-    updateTrackPosition(virtualIndex, false);
+    updateTrackPosition(virtualIndexRef.current, false);
 
     const handleResize = () => {
-      updateTrackPosition(virtualIndex, false);
+      updateTrackPosition(virtualIndexRef.current, false);
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -203,7 +207,7 @@ export const DestinationPage: React.FC<DestinationPageProps> = ({ onOpenQuote })
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [virtualIndex, updateTrackPosition, move]);
+  }, [updateTrackPosition, move]);
 
   // Touch Handlers
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -395,6 +399,18 @@ export const DestinationPage: React.FC<DestinationPageProps> = ({ onOpenQuote })
 
         .dest-text-wrap {
           max-width: 830px;
+          animation: destFadeIn 0.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+        }
+
+        @keyframes destFadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
         }
 
         .dest-kicker {
@@ -627,7 +643,7 @@ export const DestinationPage: React.FC<DestinationPageProps> = ({ onOpenQuote })
 
       {/* Main Content Layout Grid */}
       <main className="dest-main">
-        {/* Top-Right CTA Button */}
+        {/* Top-Right CTA Button (Mobile bottom right) */}
         <button
           onClick={onOpenQuote}
           className="dest-explore dest-top-cta"
@@ -676,7 +692,7 @@ export const DestinationPage: React.FC<DestinationPageProps> = ({ onOpenQuote })
 
         {/* Bottom Text Content & Controls */}
         <section className="dest-content">
-          <div className="dest-text-wrap" aria-live="polite">
+          <div key={current} className="dest-text-wrap" aria-live="polite">
             <div className="dest-kicker">{currentDestination.kicker}</div>
             <h1 className="dest-title">{currentDestination.title}</h1>
             <p className="dest-desc">{currentDestination.desc}</p>
