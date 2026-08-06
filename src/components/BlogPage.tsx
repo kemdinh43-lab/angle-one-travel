@@ -225,8 +225,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
     return matchesCat && matchesSearch;
   });
 
-  const featuredArticle = filteredArticles[0] || BLOG_ARTICLES[0];
-  const gridArticles = filteredArticles.slice(1);
+  const gridArticles = filteredArticles;
 
   return (
     <div className="min-h-screen bg-white text-[#22251F]" style={{ fontFamily: "'Manrope', sans-serif" }}>
@@ -294,97 +293,34 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
 
         </div>
 
-        {/* ── FEATURED HERO ARTICLE CARD (Compact Mobile First Layout) ───────── */}
-        {featuredArticle && (
-          <div className="mb-10 sm:mb-12 bg-[#FAF9F5] border border-[#D9D8D0] rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xs hover:border-[#43563A] hover:shadow-lg transition-all duration-500">
-            <div className="grid lg:grid-cols-2 gap-5 sm:gap-6 items-center">
-              
-              {/* Left Image */}
-              <div className="rounded-xl sm:rounded-2xl overflow-hidden aspect-[16/9] sm:aspect-[4/3] bg-[#DDE3D6] relative group">
-                <img
-                  src={featuredArticle.image}
-                  alt={featuredArticle.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute top-3 left-3 flex gap-1.5">
-                  <span className="bg-[#43563A] text-white px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold uppercase shadow-xs">
-                    NỔI BẬT
-                  </span>
-                  <span className="bg-white text-[#22251F] px-2.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-bold uppercase shadow-2xs border border-[#D9D8D0]">
-                    {featuredArticle.category}
-                  </span>
-                </div>
-              </div>
-
-              {/* Right Content */}
-              <div className="flex flex-col justify-between h-full space-y-3 sm:space-y-4">
-                <div>
-                  <div className="flex items-center gap-2.5 text-[11px] text-[#787D75] font-semibold mb-2">
-                    <span className="flex items-center gap-1">
-                      <Clock size={12} /> {featuredArticle.readTime}
-                    </span>
-                    <span>•</span>
-                    <span>{featuredArticle.date}</span>
-                  </div>
-
-                  <h2
-                    onClick={() => setActiveArticle(featuredArticle)}
-                    className="text-lg sm:text-2xl font-extrabold text-[#22251F] tracking-tight leading-snug hover:text-[#43563A] transition-colors cursor-pointer mb-2"
-                  >
-                    {featuredArticle.title}
-                  </h2>
-
-                  <p
-                    className="text-xs sm:text-sm text-[#464A43] leading-relaxed line-clamp-2 sm:line-clamp-3 mb-4"
-                    style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-                  >
-                    {featuredArticle.excerpt}
-                  </p>
-                </div>
-
-                {/* Olive Green CTA Button */}
-                <div>
-                  <button
-                    onClick={() => setActiveArticle(featuredArticle)}
-                    className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 bg-[#43563A] hover:bg-[#34452F] text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
-                  >
-                    <span>Đọc cẩm nang</span>
-                    <ArrowRight size={13} />
-                  </button>
-                </div>
-
-              </div>
-
-            </div>
-          </div>
-        )}
-
-        {/* ── GRID OF ARTICLES (Mobile-First Compact 3 Columns Layout) ────────── */}
+        {/* ── GRID OF ARTICLES (Cấu trúc thẻ tin tức nhỏ tối giản không có số 01 02 và không dùng block lớn) ────────── */}
         <div className="mb-14 sm:mb-20">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
             {gridArticles.map((article) => (
               <div
                 key={article.id}
                 onClick={() => setActiveArticle(article)}
-                className="group bg-[#FAF9F5] border border-[#D9D8D0] rounded-2xl p-4 shadow-2xs hover:shadow-md hover:border-[#43563A] transition-all duration-300 cursor-pointer flex flex-col justify-between"
+                className="group cursor-pointer space-y-3.5"
               >
-                <div>
-                  {/* Card Image */}
-                  <div className="rounded-xl overflow-hidden aspect-[16/10] sm:aspect-[4/3] bg-[#DDE3D6] mb-3.5 relative">
-                    <img
-                      src={article.image}
-                      alt={article.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute top-2.5 left-2.5">
-                      <span className="bg-white/95 backdrop-blur-xs text-[#22251F] px-2.5 py-0.5 rounded-full text-[9px] font-bold uppercase shadow-2xs border border-[#D9D8D0]">
-                        {article.category}
-                      </span>
-                    </div>
-                  </div>
+                {/* Top Image (Khớp 100% Ảnh Mẫu Tối Giản) */}
+                <div className="w-full aspect-[4/3] rounded-3xl overflow-hidden bg-[#E5E7EB] relative shadow-2xs group-hover:shadow-lg transition-all duration-500">
+                  <img
+                    src={article.image}
+                    alt={article.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
 
-                  {/* Card Metadata */}
-                  <div className="flex items-center gap-2 text-[10px] sm:text-[11px] text-[#787D75] font-medium mb-1.5">
+                  {/* Category Tag pill on top right */}
+                  <div className="absolute top-4 right-4">
+                    <span className="bg-white/90 backdrop-blur-md text-[#111827] px-3 py-1 rounded-full text-[10px] font-extrabold uppercase shadow-xs border border-white/40">
+                      {article.category}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Article Title & Description Below (Unboxed Minimalism) */}
+                <div className="space-y-1.5 px-1">
+                  <div className="flex items-center gap-2 text-[11px] text-[#6B7280] font-medium">
                     <span className="flex items-center gap-1">
                       <Clock size={11} /> {article.readTime}
                     </span>
@@ -392,26 +328,16 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
                     <span>{article.date}</span>
                   </div>
 
-                  {/* Card Title */}
-                  <h3 className="text-sm sm:text-base font-extrabold text-[#22251F] tracking-tight leading-snug group-hover:text-[#43563A] transition-colors mb-1.5 line-clamp-2">
+                  <h3 className="text-lg sm:text-xl font-extrabold text-[#111827] tracking-tight leading-snug group-hover:text-[#43563A] transition-colors line-clamp-2">
                     {article.title}
                   </h3>
 
-                  {/* Card Excerpt */}
                   <p
-                    className="text-[11px] sm:text-xs text-[#787D75] leading-relaxed line-clamp-2 mb-3"
+                    className="text-xs sm:text-sm text-[#6B7280] leading-relaxed line-clamp-2"
                     style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
                   >
                     {article.excerpt}
                   </p>
-                </div>
-
-                {/* Olive Green Link */}
-                <div className="pt-2.5 border-t border-[#D9D8D0] flex items-center justify-between">
-                  <span className="text-[11px] sm:text-xs font-bold text-[#43563A] group-hover:underline flex items-center gap-1">
-                    Đọc tiếp <ArrowRight size={11} />
-                  </span>
-                  <span className="text-[10px] text-[#787D75]">{article.author}</span>
                 </div>
               </div>
             ))}
