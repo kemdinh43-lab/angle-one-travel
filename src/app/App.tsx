@@ -15,6 +15,7 @@ import { Footer } from "../components/Footer";
 import { TourPage } from "../components/TourPage";
 import { BlogPage } from "../components/BlogPage";
 import { AboutPage } from "../components/AboutPage";
+import { TourDetailPage } from "../components/TourDetailPage";
 
 import { QuoteModal } from "../components/QuoteModal";
 import { TourDetailModal } from "../components/TourDetailModal";
@@ -23,23 +24,33 @@ import { CustomBuilderModal } from "../components/CustomBuilderModal";
 import { Tour } from "../types/travel";
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<"home" | "tours" | "blog" | "about">("home");
+  const [currentView, setCurrentView] = useState<"home" | "tours" | "blog" | "about" | "tour-detail">("home");
   const [isQuoteOpen, setIsQuoteOpen] = useState(false);
   const [isCustomOpen, setIsCustomOpen] = useState(false);
   const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
 
-  const handleOpenQuoteForTour = (tour?: Tour) => {
-    setSelectedTour(tour || null);
+  const handleOpenQuoteForTour = (tourName?: string | Tour) => {
+    if (typeof tourName === "object") {
+      setSelectedTour(tourName);
+    } else {
+      setSelectedTour(null);
+    }
     setIsQuoteOpen(true);
   };
 
   const handleNavigate = (view: string) => {
-    if (view === "tours" || view === "blog" || view === "home" || view === "about") {
+    if (view === "tours" || view === "blog" || view === "home" || view === "about" || view === "tour-detail") {
       setCurrentView(view as any);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
       setCurrentView("home");
     }
+  };
+
+  const handleSelectTourForDetail = (tour?: Tour | string) => {
+    setSelectedTour(null);
+    setCurrentView("tour-detail");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -70,11 +81,12 @@ export default function App() {
             <NeedPicker
               onOpenQuote={() => handleOpenQuoteForTour()}
               onOpenCustom={() => setIsCustomOpen(true)}
+              onSelectTour={() => handleSelectTourForDetail()}
             />
 
             {/* 4. Featured Tours & Packages ("Khám phá các tour nổi bật nhất") */}
             <Packages
-              onSelectTour={(tour) => setSelectedTour(tour)}
+              onSelectTour={(tour) => handleSelectTourForDetail(tour)}
               onOpenQuote={() => handleOpenQuoteForTour()}
             />
 
@@ -105,7 +117,7 @@ export default function App() {
         ) : currentView === "tours" ? (
           /* Dedicated Full Tour Page */
           <TourPage
-            onSelectTour={(tour) => setSelectedTour(tour)}
+            onSelectTour={(tour) => handleSelectTourForDetail(tour)}
             onOpenQuote={(tour) => handleOpenQuoteForTour(tour)}
             onOpenCustom={() => setIsCustomOpen(true)}
             onBackToHome={() => handleNavigate("home")}
@@ -116,6 +128,13 @@ export default function App() {
             onNavigate={handleNavigate}
             onOpenQuote={() => handleOpenQuoteForTour()}
             onOpenCustom={() => setIsCustomOpen(true)}
+          />
+        ) : currentView === "tour-detail" ? (
+          /* Dedicated 26-Section Full Tour Detail Page (Matching Urbanet Reference 100%) */
+          <TourDetailPage
+            onBackToHome={() => handleNavigate("home")}
+            onOpenQuote={(tourName) => handleOpenQuoteForTour(tourName)}
+            onNavigateToTour={(tourId) => handleNavigate("tour-detail")}
           />
         ) : (
           /* Dedicated Blog & Articles Page */
@@ -136,14 +155,7 @@ export default function App() {
         selectedTour={selectedTour}
       />
 
-      <TourDetailModal
-        tour={selectedTour}
-        onClose={() => setSelectedTour(null)}
-        onBookNow={(tour) => {
-          setSelectedTour(null);
-          handleOpenQuoteForTour(tour);
-        }}
-      />
+
 
       <CustomBuilderModal
         isOpen={isCustomOpen}

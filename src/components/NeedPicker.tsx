@@ -5,17 +5,18 @@ import { IMAGES } from "../data/travelData";
 interface NeedPickerProps {
   onOpenQuote: () => void;
   onOpenCustom: () => void;
+  onSelectTour?: () => void;
 }
 
-export const NeedPicker: React.FC<NeedPickerProps> = ({ onOpenQuote, onOpenCustom }) => {
+export const NeedPicker: React.FC<NeedPickerProps> = ({ onOpenQuote, onOpenCustom, onSelectTour }) => {
   const cards = [
     {
       n: "01",
       title: "Chọn tour có sẵn",
       desc: "Tour trọn gói lịch trình tối ưu, chi phí minh bạch, dễ dàng lựa chọn và khởi hành nhanh chóng.",
       img: IMAGES.danang,
-      cta: "Xem danh sách tour",
-      action: onOpenQuote,
+      cta: "Xem chi tiết tour Phú Quốc",
+      action: onSelectTour || onOpenQuote,
     },
     {
       n: "02",
