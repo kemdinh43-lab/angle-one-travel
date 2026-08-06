@@ -36,7 +36,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   const handleNavClick = (viewOrId: string) => {
     setIsMobileMenuOpen(false);
-    if (viewOrId === "blog" || viewOrId === "tours" || viewOrId === "about" || viewOrId === "destinations") {
+    if (viewOrId === "blog" || viewOrId === "tours" || viewOrId === "about" || viewOrId === "destinations" || viewOrId === "services") {
       if (onNavigate) {
         onNavigate(viewOrId);
         window.scrollTo({ top: 0, behavior: "smooth" });
