@@ -18,6 +18,7 @@ import { AboutPage } from "../components/AboutPage";
 import { TourDetailPage } from "../components/TourDetailPage";
 import { DestinationPage } from "../components/DestinationPage";
 import { ServicesPage } from "../components/ServicesPage";
+import { FloatingContactCtas } from "../components/FloatingContactCtas";
 
 import { QuoteModal } from "../components/QuoteModal";
 import { TourDetailModal } from "../components/TourDetailModal";
@@ -161,6 +162,8 @@ export default function App() {
 
       {/* Global Footer */}
       <Footer />
+
+      <FloatingContactCtas />
 
       {/* Interactive Modals */}
       <QuoteModal
