@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ArrowRight, MapPin } from "lucide-react";
 import { DESTINATIONS } from "../data/travelData";
 import { Destination } from "../types/travel";
+import { useWordPressContent } from "../lib/wordpressContent";
 
 interface DestinationsProps {
   onOpenQuote: () => void;
@@ -11,11 +12,16 @@ export const Destinations: React.FC<DestinationsProps> = ({ onOpenQuote }) => {
   const TABS = ["Tất cả", "Thành phố", "Văn hóa", "Thiên nhiên", "Biển"];
   const [activeTab, setActiveTab] = useState("Tất cả");
   const [selectedDest, setSelectedDest] = useState<Destination | null>(null);
+  const { destinations: wpDestinations } = useWordPressContent();
+  const destinations =
+    wpDestinations.length > 0
+      ? [...wpDestinations, ...DESTINATIONS.filter((destination) => !wpDestinations.some((wpDestination) => wpDestination.slug === destination.slug || wpDestination.id === destination.id))]
+      : DESTINATIONS;
 
   const filteredDests =
     activeTab === "Tất cả"
-      ? DESTINATIONS
-      : DESTINATIONS.filter((d) => d.tag === activeTab);
+      ? destinations
+      : destinations.filter((d) => d.tag === activeTab);
 
   return (
     <section id="destinations" className="py-20 md:py-28 bg-[#FAF9F5]" style={{ fontFamily: "'Manrope', sans-serif" }}>

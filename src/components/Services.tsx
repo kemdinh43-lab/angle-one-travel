@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ArrowRight, Car, Hotel, Ticket, UserCheck, Coffee, Building2, CheckCircle } from "lucide-react";
 import { SERVICES, IMAGES } from "../data/travelData";
 import { ServiceItem } from "../types/travel";
+import { useWordPressContent } from "../lib/wordpressContent";
 
 interface ServicesProps {
   onOpenQuote: () => void;
@@ -9,29 +10,19 @@ interface ServicesProps {
 
 export const Services: React.FC<ServicesProps> = ({ onOpenQuote }) => {
   const [activeService, setActiveService] = useState<ServiceItem | null>(null);
+  const { services: wpServices } = useWordPressContent();
+  const services =
+    wpServices.length > 0
+      ? [...wpServices, ...SERVICES.filter((service) => !wpServices.some((wpService) => wpService.slug === service.slug || wpService.id === service.id))]
+      : SERVICES;
+  const primaryService = services[0] ?? SERVICES[0];
+  const serviceBackgrounds = [IMAGES.hoian, IMAGES.bana, IMAGES.hue, IMAGES.beachP];
 
-  const secondaryServices = [
-    {
-      ...SERVICES[1], // Hotel
-      bgImg: IMAGES.hoian,
-      isOliveDefault: false,
-    },
-    {
-      ...SERVICES[2], // Ticket
-      bgImg: IMAGES.bana,
-      isOliveDefault: false,
-    },
-    {
-      ...SERVICES[3], // Guide (Default Deep Olive Green Background)
-      bgImg: IMAGES.hue,
-      isOliveDefault: true,
-    },
-    {
-      ...SERVICES[4], // Team Building
-      bgImg: IMAGES.beachP,
-      isOliveDefault: false,
-    },
-  ];
+  const secondaryServices = services.slice(1, 5).map((service, index) => ({
+    ...service,
+    bgImg: serviceBackgrounds[index] ?? IMAGES.hoian,
+    isOliveDefault: index === 2,
+  }));
 
   const getIcon = (iconName: string, className = "w-5 h-5") => {
     switch (iconName) {
@@ -74,24 +65,24 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuote }) => {
             
             <div className="relative z-10 p-6 sm:p-8 flex flex-col justify-between h-full">
               <div className="w-11 h-11 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white">
-                <Car size={20} />
+                {getIcon(primaryService.iconName, "w-5 h-5")}
               </div>
 
               <div>
                 <span className="text-[10px] sm:text-xs text-[#DDE3D6] uppercase tracking-widest font-semibold block mb-1">
-                  Dịch vụ xe du lịch
+                  Dịch vụ Angel One
                 </span>
                 <h3 className="text-white text-xl sm:text-2xl font-bold mb-2 tracking-tight">
-                  Thuê xe du lịch 4-45 chỗ
+                  {primaryService.title}
                 </h3>
                 <p
                   className="text-white/80 text-xs sm:text-sm mb-6 leading-relaxed line-clamp-2"
                   style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
                 >
-                  Xe sân bay, xe thăm quan di sản, xe hợp đồng liên tỉnh — tài xế lịch sự, xe đời mới siêu êm.
+                  {primaryService.desc}
                 </p>
                 <button className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold bg-white text-[#43563A] group-hover:bg-[#FAF9F5] transition-colors shadow">
-                  Bảng giá xe du lịch <ArrowRight size={13} />
+                  Nhận báo giá dịch vụ <ArrowRight size={13} />
                 </button>
               </div>
             </div>

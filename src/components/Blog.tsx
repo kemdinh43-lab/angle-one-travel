@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ArrowRight, Clock, X } from "lucide-react";
 import { BLOG_POSTS } from "../data/travelData";
 import { BlogPost } from "../types/travel";
+import { useWordPressContent } from "../lib/wordpressContent";
 
 interface BlogProps {
   onNavigateToBlog?: () => void;
@@ -9,22 +10,27 @@ interface BlogProps {
 
 export const Blog: React.FC<BlogProps> = ({ onNavigateToBlog }) => {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  const { posts: wpPosts } = useWordPressContent();
+  const posts =
+    wpPosts.length > 0
+      ? [...wpPosts, ...BLOG_POSTS.filter((post) => !wpPosts.some((wpPost) => wpPost.slug === post.slug || wpPost.id === post.id))]
+      : BLOG_POSTS;
 
   const featuredPost = {
-    ...BLOG_POSTS[0],
+    ...posts[0],
     tags: ["Cẩm nang", "Gia đình", "Lịch trình"],
   };
 
   const rightPosts = [
     {
-      ...BLOG_POSTS[1],
+      ...posts[1],
       tags: ["Du lịch", "Văn hóa", "Cố Đô Huế"],
     },
     {
-      ...BLOG_POSTS[2],
+      ...posts[2],
       tags: ["Tư vấn", "Kinh nghiệm", "Đà Nẵng"],
     },
-  ];
+  ].filter((post) => post.id);
 
   return (
     <section id="blog" className="py-16 md:py-24 bg-[#FAF9F5]" style={{ fontFamily: "'Manrope', sans-serif" }}>
