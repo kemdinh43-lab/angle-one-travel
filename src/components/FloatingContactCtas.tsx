@@ -13,14 +13,10 @@ export const FloatingContactCtas: React.FC = () => {
       <a
         href={`tel:${CONTACT_NUMBER}`}
         aria-label={`Gọi hotline ${CONTACT_NUMBER}`}
-        className="group flex h-12 md:h-13 min-w-12 items-center justify-center gap-2 rounded-full bg-[#43563A] px-3 md:px-4 text-white shadow-[0_16px_35px_rgba(34,37,31,0.22)] ring-1 ring-white/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#34452F] hover:shadow-[0_18px_42px_rgba(34,37,31,0.28)]"
+        title={`Gọi hotline ${CONTACT_NUMBER}`}
+        className="group flex h-12 w-12 items-center justify-center rounded-full bg-[#43563A] text-white shadow-[0_16px_35px_rgba(34,37,31,0.22)] ring-1 ring-white/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#34452F] hover:shadow-[0_18px_42px_rgba(34,37,31,0.28)] md:h-13 md:w-13"
       >
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/16">
-          <PhoneCall size={17} strokeWidth={2.4} />
-        </span>
-        <span className="hidden pr-1 text-xs font-extrabold tracking-tight md:inline">
-          Gọi hotline
-        </span>
+        <PhoneCall size={21} strokeWidth={2.35} />
       </a>
 
       <a
@@ -28,14 +24,10 @@ export const FloatingContactCtas: React.FC = () => {
         target="_blank"
         rel="noreferrer"
         aria-label={`Chat Zalo ${CONTACT_NUMBER}`}
-        className="group flex h-12 md:h-13 min-w-12 items-center justify-center gap-2 rounded-full bg-[#0A75FF] px-3 md:px-4 text-white shadow-[0_16px_35px_rgba(10,117,255,0.24)] ring-1 ring-white/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#075ED0] hover:shadow-[0_18px_42px_rgba(10,117,255,0.3)]"
+        title={`Chat Zalo ${CONTACT_NUMBER}`}
+        className="group flex h-12 w-12 items-center justify-center rounded-full bg-[#0A75FF] text-white shadow-[0_16px_35px_rgba(10,117,255,0.24)] ring-1 ring-white/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#075ED0] hover:shadow-[0_18px_42px_rgba(10,117,255,0.3)] md:h-13 md:w-13"
       >
-        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/18">
-          <MessageCircle size={17} strokeWidth={2.4} />
-        </span>
-        <span className="hidden pr-1 text-xs font-extrabold tracking-tight md:inline">
-          Chat Zalo
-        </span>
+        <MessageCircle size={21} strokeWidth={2.35} />
       </a>
     </div>
   );
