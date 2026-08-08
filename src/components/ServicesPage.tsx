@@ -1,5 +1,17 @@
-import React, { useState } from "react";
-import { ArrowRight, ChevronRight, CheckCircle2, PhoneCall, MessageSquare } from "lucide-react";
+import React, { useState, useRef } from "react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  ChevronLeft,
+  ChevronRight,
+  PhoneCall,
+  MessageCircle,
+  ShieldCheck,
+  Award,
+  Clock,
+  HeartHandshake,
+  CheckCircle2
+} from "lucide-react";
 import { IMAGES } from "../data/travelData";
 
 interface ServicesPageProps {
@@ -8,655 +20,431 @@ interface ServicesPageProps {
   onOpenCustom: () => void;
 }
 
-// ── 1. TOUR CATEGORIES DATA ────────────────────────────────────────────────
-const TOUR_CATEGORIES = [
+// ── BRAND COLORS ──────────────────────────────────────────────────────────
+const PRIMARY = "#43563A"; // Forest Green
+const PRIMARY_HOVER = "#34452F";
+
+// ── 4 CORE SERVICES DATA ──────────────────────────────────────────────────
+const SERVICES_LIST = [
   {
-    title: "Tour Tuyến Miền Trung",
-    badge: "Bán chạy nhất",
-    desc: "Đà Nẵng – Phố cổ Hội An – Cố đô Huế – Đỉnh Bà Nà Hills – Cù Lao Chàm. Chương trình 2N1Đ, 3N2Đ, 4N3Đ trọn gói.",
-    img: IMAGES.danang,
-    tags: ["Đà Nẵng 3N2Đ", "Hội An 2N1Đ", "Bà Nà Hills 1 Ngày", "Huế 1 Ngày"],
-  },
-  {
-    title: "Tour Biển Đảo & Miền Nam",
-    badge: "Nghỉ dưỡng cao cấp",
-    desc: "Phú Quốc, Nha Trang, Quy Nhơn, Côn Đảo. Kết hợp nghỉ dưỡng resort 4-5 sao sát biển và trải nghiệm lặn ngắm san hô.",
-    img: IMAGES.phuquoc,
-    tags: ["Phú Quốc 3N2Đ", "Quy Nhơn 3N2Đ", "Nha Trang 4N3Đ", "Resort Sát Biển"],
-  },
-  {
-    title: "Tour Miền Bắc & Nâng Cao",
-    badge: "Khám phá di sản",
-    desc: "Sa Pa, Vịnh Hạ Long, Ninh Bình, Hà Giang. Trải nghiệm cảnh quan núi rừng hùng vĩ, ruộng bậc thang và di sản thiên nhiên.",
+    id: "tours",
+    num: "01",
+    tag: "TOUR & TRẢI NGHIỆM",
+    title: "Tour du lịch thiết kế riêng",
+    subtitle: "Lịch trình riêng cho Gia đình, Cặp đôi & Nhóm bạn",
+    desc: "Tận hưởng lịch trình riêng tư được may đo 100% theo thời gian, ngân sách và sở thích cá nhân. Khám phá thiên nhiên và văn hóa địa phương với chiều sâu khác biệt.",
     img: IMAGES.sapa,
-    tags: ["Sa Pa 3N2Đ", "Hạ Long 2N1Đ", "Ninh Bình 1 Ngày", "Hà Giang 4N3Đ"],
+    details: [
+      "Tour gia đình & nhóm nhỏ riêng tư",
+      "Lịch trình tùy chỉnh theo nhu cầu",
+      "Khách sạn & Resort 3 - 5★ tuyển chọn",
+      "Hướng dẫn viên bản địa am hiểu"
+    ],
+    action: "tours",
+    ctaText: "Khám phá Tour riêng"
   },
   {
-    title: "Tour Quốc Tế Nổi Bật",
-    badge: "Hỗ trợ visa A-Z",
-    desc: "Thái Lan, Hàn Quốc, Nhật Bản, Singapore - Malaysia. Hỗ trợ toàn bộ thủ tục visa, vé máy bay, lưu trú và HDV tiếng Việt.",
-    img: IMAGES.thailand,
-    tags: ["Thái Lan 5N4Đ", "Hàn Quốc 5N4Đ", "Nhật Bản 6N5Đ", "Singapore 4N3Đ"],
-  },
-];
-
-// ── 2. TRANSPORT & VEHICLE FLEET DATA ─────────────────────────────────────
-const VEHICLE_FLEET = [
-  {
-    type: "Xe 4 Chỗ (Sedan)",
-    models: "Toyota Vios, Honda City, Camry",
-    purpose: "Đưa đón sân bay Đà Nẵng, xe công tác, khách cá nhân & cặp đôi.",
+    id: "transport",
+    num: "02",
+    tag: "VẬN TẢI DU LỊCH",
+    title: "Vận tải du lịch & Xe VIP",
+    subtitle: "Xe 4 - 45 chỗ đời mới & Dàn VIP Limousine",
+    desc: "Dịch vụ đưa đón sân bay 24/7, xe hợp đồng tham quan liên tỉnh Miền Trung với sự an toàn tuyệt đối. Lái xe kinh nghiệm, đúng giờ và am hiểu tuyến đường.",
     img: IMAGES.coastal,
+    details: [
+      "Đón tiễn sân bay 24/7 đúng giờ",
+      "Đội xe 4 - 45 chỗ đời mới, máy lạnh êm",
+      "Dòng VIP Limousine đẳng cấp",
+      "Lái xe bản địa lịch sự, an toàn"
+    ],
+    action: "quote",
+    ctaText: "Yêu cầu báo giá xe"
   },
   {
-    type: "Xe 7 Chỗ (SUV / MPV)",
-    models: "Toyota Innova, Fortuner, Kia Carnival",
-    purpose: "Phục vụ gia đình, nhóm bạn 4-6 người và chuyên gia công tác.",
-    img: IMAGES.beachP,
+    id: "mice",
+    num: "03",
+    tag: "MICE & SỰ KIỆN DOANH NGHIỆP",
+    title: "Giải pháp MICE & Sự kiện",
+    subtitle: "Team Building, Gala Dinner & Hội thảo MICE",
+    desc: "Tổ chức trọn gói các chương trình du lịch kết hợp hội nghị, sự kiện và hoạt động gắn kết tinh thần đồng đội cho doanh nghiệp trên bãi biển sôi động.",
+    img: IMAGES.bana,
+    details: [
+      "Team Building bãi biển kịch bản độc đáo",
+      "Đêm tiệc Gala Dinner hoành tráng",
+      "Hội thảo MICE chuyên nghiệp setup",
+      "In ấn backdrop, quà tặng & flycam"
+    ],
+    action: "quote",
+    ctaText: "Tư vấn Doanh nghiệp"
   },
   {
-    type: "Xe 16 Chỗ (Minibus)",
-    models: "Ford Transit, Hyundai Solati đời mới",
-    purpose: "Xe tour nhóm, đoàn gia đình lớn, xe hội nghị & sự kiện.",
+    id: "support",
+    num: "04",
+    tag: "DỊCH VỤ HỖ TRỢ TẠI ĐIỂM ĐẾN",
+    title: "Dịch vụ hỗ trợ tại điểm đến",
+    subtitle: "Booking Resort 3-5★, Vé QR Code & HDV",
+    desc: "Đơn vị kết nối trực tiếp giúp bạn đặt phòng khách sạn giá đại lý ưu đãi hơn đặt trực tiếp, vé vào cổng quét QR Code không phải xếp hàng chờ đợi.",
     img: IMAGES.hoian,
-  },
-  {
-    type: "Xe 29 – 45 Chỗ (Large Bus)",
-    models: "Hyundai County, Thaco Town, Universe",
-    purpose: "Đoàn du lịch đông người, tour công ty, trường học & tiệc cưới.",
-    img: IMAGES.hue,
-  },
-  {
-    type: "DCar Limousine VIP",
-    models: "DCar VIP 9 chỗ, 16 chỗ cao cấp",
-    purpose: "Đón tiếp đối tác VIP, khách hàng cao cấp & chuyến đi nghỉ dưỡng.",
-    img: IMAGES.bana,
-  },
+    details: [
+      "Cam kết giá phòng tốt hơn đặt trực tiếp",
+      "Vé QR Code Bà Nà, Hội An qua cổng nhanh",
+      "HDV tiếng Việt, Anh, Hàn, Trung",
+      "Hỗ trợ phát sinh & thay đổi 24/7"
+    ],
+    action: "quote",
+    ctaText: "Đặt dịch vụ hỗ trợ"
+  }
 ];
 
-// ── 3. ENTERPRISE MICE & TEAMBUILDING DATA ────────────────────────────────
-const ENTERPRISE_SERVICES = [
+// ── TRUST BADGES DATA ─────────────────────────────────────────────────────
+const TRUST_BADGES = [
   {
-    title: "Du Lịch Thường Niên (Company Trip)",
-    desc: "Lịch trình nghỉ dưỡng cân bằng giữa thư giãn và tham quan, gắn kết toàn bộ cán bộ nhân viên công ty.",
+    num: "01",
+    icon: Award,
+    title: "Chất lượng chuẩn 5★",
+    desc: "Mọi xe du lịch, khách sạn & đối tác đều qua kiểm định thực tế khắt khe."
   },
   {
-    title: "Team Building Bãi Biển",
-    desc: "Tổ chức trò chơi vận động bãi biển (Biển Mỹ Khê, Cửa Đại), cung cấp đạo cụ, MC và quay phim chụp ảnh.",
+    num: "02",
+    icon: ShieldCheck,
+    title: "Am hiểu địa phương",
+    desc: "Đội ngũ bản địa tư vấn chân thành, đưa ra giải pháp đúng nhu cầu thực tế."
   },
   {
-    title: "Đêm Gala Dinner & Sân Khấu",
-    desc: "Thiết kế kịch bản tiệc tối, cung cấp âm thanh, ánh sáng, màn hình LED, MC chuyên nghiệp và quà tặng.",
+    num: "03",
+    icon: Clock,
+    title: "Minh bạch chi phí",
+    desc: "Báo giá trọn gói niêm yết rõ ràng, tuyệt đối không phát sinh chi phí ẩn."
   },
   {
-    title: "Hội Nghị, Hội Thảo (MICE)",
-    desc: "Đặt phòng hội nghị tại khách sạn 4-5 sao, chuẩn bị teabreak, đón tiễn đại biểu và quà tặng sự kiện.",
-  },
-];
-
-// ── 4. TICKETS & ACCOMMODATION DATA ───────────────────────────────────────
-const SUPPORT_SERVICES_LIST = [
-  {
-    title: "Đặt Phòng Khách Sạn & Resort",
-    desc: "Đại lý trực tiếp các hệ thống Khách sạn & Resort 3★ – 5★ sát biển Đà Nẵng, Phố cổ Hội An, Bà Nà Hills với giá ưu đãi hơn đặt trực tiếp.",
-    img: IMAGES.beach,
-    details: ["Khách sạn 3-5 sao biển Mỹ Khê", "Resort cao cấp Hội An & Lăng Cô", "Combo Phòng + Vé máy bay", "Hỗ trợ check-in sớm / muộn"],
-  },
-  {
-    title: "Vé Tham Quan & Cáp Treo Giá Đại Lý",
-    desc: "Cung cấp vé cáp treo Bà Nà Hills, Vé xem show Ký Ức Hội An, VinWonders Nam Hội An, Vé Núi Thần Tài không phải xếp hàng chờ đợi.",
-    img: IMAGES.bana,
-    details: ["Vé Cáp treo Bà Nà Hills + Buffet", "Vé Ký Ức Hội An hạng ECO/VIP", "Vé Công viên khoáng nóng Thần Tài", "Vé VinWonders & Cù Lao Chàm"],
-  },
+    num: "04",
+    icon: HeartHandshake,
+    title: "Hỗ trợ đồng hành 24/7",
+    desc: "Luôn có nhân sự trực tuyến xử lý mọi phát sinh từ khi đi đến khi về nhà."
+  }
 ];
 
 export const ServicesPage: React.FC<ServicesPageProps> = ({
   onNavigate,
   onOpenQuote,
-  onOpenCustom,
+  onOpenCustom
 }) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    service: "",
-    destination: "",
-    date: "",
-    guests: "",
-    budget: "",
-    note: "",
-  });
+  const [activeIdx, setActiveIdx] = useState<number>(0);
+  const touchStartX = useRef<number>(0);
+  const touchEndX = useRef<number>(0);
 
-  const handleFormChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-  ) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const activeService = SERVICES_LIST[activeIdx];
+  const prevService = SERVICES_LIST[(activeIdx - 1 + SERVICES_LIST.length) % SERVICES_LIST.length];
+  const nextService = SERVICES_LIST[(activeIdx + 1) % SERVICES_LIST.length];
+
+  const handleAction = (action: string) => {
+    if (action === "tours") onNavigate("tours");
+    else if (action === "custom") onOpenCustom();
+    else onOpenQuote();
   };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onOpenQuote();
+  const handleNext = () => {
+    setActiveIdx((prev) => (prev + 1) % SERVICES_LIST.length);
+  };
+
+  const handlePrev = () => {
+    setActiveIdx((prev) => (prev - 1 + SERVICES_LIST.length) % SERVICES_LIST.length);
+  };
+
+  // Touch Swipe for Mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = () => {
+    const diff = touchStartX.current - touchEndX.current;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) handleNext();
+      else handlePrev();
+    }
   };
 
   return (
     <div
-      className="min-h-screen bg-[#FAF9F5] text-[#111827]"
-      style={{ fontFamily: "'Manrope', sans-serif" }}
+      className="relative min-h-screen text-[#22251F] select-none bg-[#121614]"
+      style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
     >
-      {/* ── 1. HERO BANNER SANG TRỌNG (FULL-BLEED SUBMERGED HERO) ───────────────── */}
-      <section className="relative w-full min-h-[520px] sm:min-h-[580px] overflow-hidden bg-[#1f2a1b] text-white pt-28 sm:pt-36 pb-16 flex items-center">
+      {/* ════════════════════════════════════════════════════════════════════
+          FULL-PAGE NEUTRAL DARK CINEMATIC SCENIC BACKGROUND
+          ════════════════════════════════════════════════════════════════════ */}
+      <div className="absolute inset-0 bottom-0 z-0 overflow-hidden pointer-events-none">
         <img
-          src={IMAGES.hero}
-          alt="Angel One Travel Đà Nẵng"
-          className="absolute inset-0 w-full h-full object-cover object-center scale-105"
+          src={IMAGES.danang}
+          alt="Đà Nẵng Cầu Rồng Panorama Unsplash"
+          className="w-full h-full object-cover object-center scale-105"
         />
-        <div className="absolute inset-0 bg-black/65 backdrop-blur-xs" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/75" />
+        {/* Neutral Dark Overlay */}
+        <div className="absolute inset-0 bg-black/65 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-[#121614]" />
+      </div>
 
-        <div className="relative z-10 max-w-[1320px] mx-auto px-5 md:px-10 w-full">
-          <div className="max-w-3xl space-y-5 text-left">
-            <span className="bg-white/15 backdrop-blur-md border border-white/25 text-white text-[11px] font-extrabold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full inline-block shadow-sm">
-              DANH MỤC DỊCH VỤ CHÍNH THỨC
-            </span>
+      {/* ════════════════════════════════════════════════════════════════════
+          SECTION 1 — HERO HEADER
+          ════════════════════════════════════════════════════════════════════ */}
+      <section className="relative z-10 w-full min-h-[80vh] flex items-center justify-center overflow-hidden">
+        <div className="w-full max-w-[1380px] mx-auto px-5 md:px-10 py-32 flex flex-col items-center text-center">
+          <h1 className="text-[clamp(36px,5.5vw,72px)] font-extrabold text-white leading-[1.08] tracking-[-0.03em] mb-6 max-w-4xl drop-shadow-md">
+            Giải pháp toàn diện<br />
+            <span className="text-[#A3B89A]">cho mọi hành trình</span>
+          </h1>
 
-            <h1 className="text-[clamp(32px,5vw,60px)] font-black text-white tracking-[-0.03em] leading-[1.08] uppercase">
-              DỊCH VỤ DU LỊCH & VẬN TẢI TOÀN DIỆN
-            </h1>
+          <p
+            className="text-white/85 text-sm md:text-base leading-relaxed mb-10 max-w-2xl"
+            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          >
+            Từ những chuyến đi cá nhân tự do đến các sự kiện doanh nghiệp quy mô lớn, Angel One Travel mang đến trải nghiệm liền mạch, đẳng cấp và đậm chất riêng tại Miền Trung.
+          </p>
 
-            <p
-              className="text-xs sm:text-sm md:text-base text-white/90 leading-relaxed font-medium"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <button
+              onClick={onOpenQuote}
+              className="group inline-flex items-center gap-3 bg-[#43563A] hover:bg-[#34452F] text-white rounded-full p-2 pl-7 pr-2.5 transition-all duration-300 shadow-xl cursor-pointer"
             >
-              Angel One Travel trực tiếp điều phối các chương trình Tour du lịch trọn gói, Đội xe vận tải 4–45 chỗ đời mới, Đặt phòng lưu trú resort và Tổ chức sự kiện doanh nghiệp tại Đà Nẵng & toàn miền Trung.
-            </p>
+              <span className="text-sm font-bold tracking-tight">Khám phá dịch vụ</span>
+              <div className="w-10 h-10 rounded-full bg-white text-[#43563A] flex items-center justify-center group-hover:rotate-45 transition-transform duration-300 shadow">
+                <ArrowUpRight size={18} />
+              </div>
+            </button>
 
-            <div className="flex flex-wrap items-center gap-3.5 pt-3">
-              <button
-                onClick={onOpenQuote}
-                className="bg-[#43563A] hover:bg-[#34452F] text-white font-extrabold text-xs sm:text-sm px-8 py-4 rounded-full transition-all shadow-xl cursor-pointer inline-flex items-center gap-2.5 group"
-              >
-                <span>Nhận Tư Vấn & Báo Giá Nhất</span>
-                <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                  <ArrowRight size={14} />
-                </div>
-              </button>
-
-              <button
-                onClick={onOpenCustom}
-                className="bg-white/10 hover:bg-white/20 border border-white/30 text-white font-extrabold text-xs sm:text-sm px-7 py-4 rounded-full transition-all cursor-pointer"
-              >
-                Thiết Kế Hành Trình Riêng
-              </button>
-            </div>
+            <button
+              onClick={onOpenCustom}
+              className="bg-white/15 hover:bg-white text-white hover:text-[#43563A] backdrop-blur-md border border-white/25 font-bold py-3.5 px-7 rounded-full flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer text-sm"
+            >
+              <span>Nhận tư vấn thiết kế riêng</span>
+            </button>
           </div>
         </div>
       </section>
 
-      {/* ── 2. DỊCH VỤ 1: TOUR DU LỊCH TRỌN GÓI & THIẾT KẾ RIÊNG ───────────────── */}
-      <section className="py-14 sm:py-24 max-w-[1320px] mx-auto px-4 sm:px-6 md:px-8">
-        <div className="mb-10 sm:mb-14 space-y-2">
-          <span className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-[#43563A]">
-            MẢNG DỊCH VỤ 01
-          </span>
-          <h2 className="text-2xl sm:text-4xl font-black text-[#111827] tracking-tight">
-            Tour Du Lịch Trọn Gói & Thiết Kế Theo Yêu Cầu
-          </h2>
-          <p
-            className="text-xs sm:text-sm text-[#4B5563] max-w-2xl"
-            style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
+      {/* ════════════════════════════════════════════════════════════════════
+          SECTION 2 — DỊCH VỤ CỐT LÕI
+          ════════════════════════════════════════════════════════════════════ */}
+      <section className="relative z-10 w-full py-16 lg:py-24 overflow-hidden">
+        <div className="max-w-[1380px] mx-auto px-4 md:px-8">
+          
+          {/* Header */}
+          <div className="text-center max-w-xl mx-auto mb-10 space-y-2">
+            <h2 className="text-[clamp(28px,3.5vw,44px)] font-extrabold text-white tracking-[-0.02em] leading-tight">
+              Dịch vụ du lịch nổi bật
+            </h2>
+          </div>
+
+          {/* MAIN 3-BLOCK CAROUSEL STAGE */}
+          <div
+            className="relative flex items-center justify-center gap-4 lg:gap-6 my-4 min-h-[380px] lg:min-h-[420px]"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
-            Chương trình linh hoạt theo số lượng khách, thời gian và ngân sách. Đã bao gồm xe đưa đón, khách sạn, ăn uống, vé tham quan và hướng dẫn viên.
-          </p>
-        </div>
-
-        {/* 4 Large Photo Cards for Tours */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {TOUR_CATEGORIES.map((cat, idx) => (
+            {/* LEFT PHOTO BLOCK */}
             <div
-              key={idx}
-              className="bg-white rounded-3xl overflow-hidden border border-[#E5E7EB] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group"
+              onClick={handlePrev}
+              className="hidden lg:block w-[300px] xl:w-[340px] h-[340px] lg:h-[370px] rounded-2xl overflow-hidden relative cursor-pointer opacity-85 hover:opacity-100 transition-all duration-500 shadow-2xl border border-white/30 group flex-none"
             >
-              <div className="relative h-48 overflow-hidden bg-black/10">
-                <img
-                  src={cat.img}
-                  alt={cat.title}
-                  className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                <span className="absolute top-3 left-3 bg-[#43563A] text-white text-[10px] font-extrabold px-3 py-1 rounded-full">
-                  {cat.badge}
-                </span>
-                <h3 className="absolute bottom-3 left-4 right-4 text-base font-black text-white">
-                  {cat.title}
-                </h3>
+              <img
+                src={prevService.img}
+                alt={prevService.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/20" />
+              
+              {/* Minimalist Bold Title Overlay */}
+              <div className="absolute bottom-5 left-5 right-5 text-white">
+                <h4 className="text-lg md:text-xl font-extrabold text-white tracking-tight drop-shadow-md leading-tight">
+                  {prevService.title}
+                </h4>
               </div>
+            </div>
 
-              <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+            {/* Left Circular Arrow Button */}
+            <button
+              onClick={handlePrev}
+              className="absolute left-2 lg:left-6 z-40 w-11 h-11 rounded-full border border-white/40 bg-black/50 hover:bg-white text-white hover:text-[#43563A] backdrop-blur-md flex items-center justify-center transition-all shadow-xl cursor-pointer"
+              aria-label="Previous Service"
+            >
+              <ChevronLeft size={20} />
+            </button>
+
+            {/* CENTER ACTIVE TEXT BLOCK */}
+            <div className="w-full max-w-[440px] lg:max-w-[480px] h-[370px] lg:h-[400px] rounded-2xl bg-white text-[#22251F] shadow-2xl p-6 sm:p-8 flex flex-col justify-between relative z-30 transition-all duration-500 border border-white/40">
+              
+              {/* Top Header */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between border-b border-[#D9D8D0] pb-3">
+                  <span className="text-3xl font-bold text-[#43563A]">
+                    {activeService.num}
+                  </span>
+                  <span className="text-[11px] font-bold text-[#787D75] uppercase tracking-widest">
+                    {activeIdx + 1} / {SERVICES_LIST.length} DỊCH VỤ
+                  </span>
+                </div>
+
+                <h3 className="text-xl lg:text-2xl font-extrabold text-[#22251F] tracking-tight leading-snug">
+                  {activeService.title}
+                </h3>
+
                 <p
-                  className="text-xs text-[#4B5563] leading-relaxed"
+                  className="text-xs sm:text-sm text-[#787D75] leading-relaxed line-clamp-3"
                   style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
                 >
-                  {cat.desc}
+                  {activeService.desc}
                 </p>
 
-                <div className="space-y-1.5 border-t border-[#F3F4F6] pt-3">
-                  {cat.tags.map((tag) => (
-                    <div key={tag} className="flex items-center gap-2">
+                {/* Minimalist Checklist */}
+                <div className="space-y-1.5 pt-1">
+                  {activeService.details.slice(0, 3).map((item, idx) => (
+                    <div key={idx} className="flex items-center gap-2 text-xs font-semibold text-[#22251F]">
                       <CheckCircle2 size={13} className="text-[#43563A] flex-none" />
-                      <span
-                        className="text-xs font-semibold text-[#111827]"
-                        style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-                      >
-                        {tag}
-                      </span>
+                      <span className="truncate">{item}</span>
                     </div>
                   ))}
                 </div>
+              </div>
 
+              {/* Bottom Action Button */}
+              <div className="pt-3 border-t border-[#D9D8D0]">
                 <button
-                  onClick={() => onNavigate("tours")}
-                  className="mt-auto w-full bg-[#FAF9F5] hover:bg-[#43563A] text-[#111827] hover:text-white border border-[#E5E7EB] font-extrabold text-xs py-3 rounded-xl transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 group/btn"
+                  onClick={() => handleAction(activeService.action)}
+                  className="group w-full inline-flex items-center justify-center gap-3 bg-[#43563A] hover:bg-[#34452F] text-white rounded-full p-2 pl-6 pr-2 transition-all duration-300 shadow-xl cursor-pointer text-xs sm:text-sm font-bold"
                 >
-                  <span>Xem lịch trình tour</span>
-                  <ChevronRight size={14} className="group-hover/btn:translate-x-1 transition-transform" />
+                  <span>{activeService.ctaText}</span>
+                  <div className="w-7 h-7 rounded-full bg-white text-[#43563A] flex items-center justify-center group-hover:rotate-45 transition-transform duration-300 shadow">
+                    <ArrowUpRight size={14} />
+                  </div>
                 </button>
               </div>
+
             </div>
-          ))}
+
+            {/* Right Circular Arrow Button */}
+            <button
+              onClick={handleNext}
+              className="absolute right-2 lg:right-6 z-40 w-11 h-11 rounded-full border border-white/40 bg-black/50 hover:bg-white text-white hover:text-[#43563A] backdrop-blur-md flex items-center justify-center transition-all shadow-xl cursor-pointer"
+              aria-label="Next Service"
+            >
+              <ChevronRight size={20} />
+            </button>
+
+            {/* RIGHT PHOTO BLOCK */}
+            <div
+              onClick={handleNext}
+              className="hidden lg:block w-[300px] xl:w-[340px] h-[340px] lg:h-[370px] rounded-2xl overflow-hidden relative cursor-pointer opacity-85 hover:opacity-100 transition-all duration-500 shadow-2xl border border-white/30 group flex-none"
+            >
+              <img
+                src={nextService.img}
+                alt={nextService.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/20" />
+
+              {/* Minimalist Bold Title Overlay */}
+              <div className="absolute bottom-5 left-5 right-5 text-white">
+                <h4 className="text-lg md:text-xl font-extrabold text-white tracking-tight drop-shadow-md leading-tight">
+                  {nextService.title}
+                </h4>
+              </div>
+            </div>
+
+          </div>
+
         </div>
       </section>
 
-      {/* ── 3. DỊCH VỤ 2: VẬN TẢI & CHO THUÊ XE DU LỊCH 4–45 CHỖ (DARK SECTION) ─ */}
-      <section className="py-14 sm:py-24 bg-[#111827] text-white">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-8 space-y-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-8">
-            <div className="space-y-2">
-              <span className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-[#A3B89A]">
-                MẢNG DỊCH VỤ 02
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-                Vận Tải Du Lịch & Đội Xe Hợp Đồng 4–45 Chỗ
-              </h2>
-              <p
-                className="text-xs sm:text-sm text-white/70 max-w-xl"
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-              >
-                Đội xe đời mới, tài xế bản địa lịch sự am hiểu tuyến điểm. Báo giá trọn gói bao gồm xăng xe, cầu đường, tài xế — Không chi phí ẩn.
-              </p>
-            </div>
-
-            <button
-              onClick={onOpenQuote}
-              className="bg-[#43563A] hover:bg-[#34452F] text-white font-extrabold text-xs px-7 py-3.5 rounded-full transition-all cursor-pointer flex-none inline-flex items-center gap-2 group"
-            >
-              <span>Nhận Báo Giá Thuê Xe</span>
-              <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
-            </button>
+      {/* ════════════════════════════════════════════════════════════════════
+          SECTION 3 — VÌ SAO CHỌN CHÚNG TÔI (UNIFIED SANS FONT & ELEGANT WHITE CARDS)
+          ════════════════════════════════════════════════════════════════════ */}
+      <section className="relative z-10 w-full py-20 md:py-28 overflow-hidden">
+        <div className="max-w-[1320px] mx-auto px-5 md:px-10">
+          
+          {/* Header */}
+          <div className="text-center max-w-xl mx-auto mb-14 space-y-3">
+            <h2 className="text-[clamp(26px,3vw,40px)] font-extrabold text-white tracking-[-0.02em] leading-tight">
+              Sự khác biệt của Angel One Travel
+            </h2>
           </div>
 
-          {/* Vehicle Fleet Cards Slider / Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {VEHICLE_FLEET.map((car, idx) => (
-              <div
-                key={idx}
-                className="bg-white/5 border border-white/10 rounded-3xl p-5 space-y-4 hover:bg-white/10 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div className="space-y-3">
-                  <div className="relative rounded-2xl overflow-hidden aspect-[16/10] bg-black/30">
-                    <img
-                      src={car.img}
-                      alt={car.type}
-                      className="w-full h-full object-cover"
-                    />
-                    <span className="absolute bottom-2.5 left-3 text-[10px] font-bold bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-full text-white">
-                      {car.models}
-                    </span>
-                  </div>
-
+          {/* TRUST BADGES GRID (1x4 Desktop, 2x2 Mobile - Elegant Numbers & Sans Typography) */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
+            {TRUST_BADGES.map((b) => {
+              const IconComp = b.icon;
+              return (
+                <div
+                  key={b.num}
+                  className="border border-white/40 rounded-3xl p-6 sm:p-7 hover:border-[#43563A] transition-all bg-white shadow-xl hover:shadow-2xl group flex flex-col justify-between text-[#22251F]"
+                >
                   <div>
-                    <h3 className="font-black text-lg text-white mb-1">{car.type}</h3>
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-4xl font-extrabold text-[#43563A] tracking-tight">
+                        {b.num}
+                      </span>
+                      <div className="w-11 h-11 rounded-2xl bg-[#DDE3D6] text-[#43563A] flex items-center justify-center group-hover:bg-[#43563A] group-hover:text-white transition-all shadow-sm">
+                        <IconComp size={20} />
+                      </div>
+                    </div>
+
+                    <h3 className="font-extrabold text-[#22251F] text-base md:text-lg mb-2 tracking-tight">
+                      {b.title}
+                    </h3>
+
                     <p
-                      className="text-xs text-white/70 leading-relaxed"
+                      className="text-xs md:text-sm text-[#5C6059] leading-relaxed"
                       style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
                     >
-                      {car.purpose}
+                      {b.desc}
                     </p>
                   </div>
                 </div>
-
-                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
-                  <span className="text-[#A3B89A] font-bold">Phạm vi: Đà Nẵng & Miền Trung</span>
-                  <button
-                    onClick={onOpenQuote}
-                    className="font-extrabold text-white hover:text-[#A3B89A] transition-colors cursor-pointer"
-                  >
-                    Thuê dòng xe này →
-                  </button>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
+
         </div>
       </section>
 
-      {/* ── 4. DỊCH VỤ 3: TỔ CHỨC SỰ KIỆN DOANH NGHIỆP (MICE & TEAM BUILDING) ──── */}
-      <section className="py-14 sm:py-24 max-w-[1320px] mx-auto px-4 sm:px-6 md:px-8 space-y-12">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <div className="space-y-3">
-              <span className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-[#43563A]">
-                MẢNG DỊCH VỤ 03
-              </span>
-              <h2 className="text-2xl sm:text-4xl font-black text-[#111827] tracking-tight leading-tight">
-                Dịch Vụ Doanh Nghiệp (MICE, Team Building & Gala)
+      {/* ════════════════════════════════════════════════════════════════════
+          SECTION 4 — CALL TO ACTION BANNER
+          ════════════════════════════════════════════════════════════════════ */}
+      <section className="relative z-10 py-20 overflow-hidden text-white border-t border-white/15">
+        <div className="max-w-[1320px] mx-auto px-5 md:px-10">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 text-center lg:text-left bg-black/50 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-white/20 shadow-2xl">
+            <div className="space-y-2 max-w-2xl">
+              <h2 className="text-2xl md:text-3xl font-extrabold text-white">
+                Sẵn sàng thiết kế chuyến đi dành riêng cho bạn?
               </h2>
               <p
-                className="text-xs sm:text-sm text-[#4B5563] leading-relaxed"
+                className="text-white/80 text-sm md:text-base"
                 style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
               >
-                Đồng hành cùng doanh nghiệp xây dựng văn hóa đội ngũ qua các chuyến du lịch thường niên, hoạt động team building bãi biển náo nhiệt và tiệc Gala tri ân sang trọng.
+                Đội ngũ tư vấn viên am hiểu địa phương luôn sẵn sàng hỗ trợ bạn 24/7.
               </p>
             </div>
 
-            <div className="space-y-4">
-              {ENTERPRISE_SERVICES.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white border border-[#E5E7EB] rounded-2xl p-4.5 space-y-1 hover:border-[#43563A] transition-all shadow-xs"
-                >
-                  <h4 className="font-extrabold text-sm text-[#111827]">{item.title}</h4>
-                  <p
-                    className="text-xs text-[#6B7280] leading-relaxed"
-                    style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-                  >
-                    {item.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            <div className="pt-2">
-              <button
-                onClick={onOpenQuote}
-                className="bg-[#43563A] hover:bg-[#34452F] text-white font-extrabold text-xs sm:text-sm px-8 py-4 rounded-full transition-all shadow-md cursor-pointer inline-flex items-center gap-2 group"
+            <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+              <a
+                href="https://zalo.me/0768643446"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full sm:w-auto bg-[#43563A] hover:bg-[#34452F] text-white font-bold py-4 px-8 rounded-full flex items-center justify-center gap-2.5 transition-all cursor-pointer shadow-xl min-h-[48px]"
               >
-                <span>Nhận Đề Xuất Kịch Bản Doanh Nghiệp</span>
-                <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
-          </div>
+                <MessageCircle size={18} />
+                <span>Chat Zalo tư vấn ngay</span>
+              </a>
 
-          {/* Real Photo Grid for Enterprise */}
-          <div className="grid grid-cols-2 gap-3.5">
-            <div className="relative rounded-3xl overflow-hidden aspect-[3/4] shadow-md group">
-              <img
-                src={IMAGES.hoian}
-                alt="Gala Dinner Doanh Nghiệp"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              <span className="absolute bottom-3 left-3 text-xs font-extrabold text-white">
-                Gala Dinner & Sân Khấu
-              </span>
-            </div>
-
-            <div className="space-y-3.5">
-              <div className="relative rounded-3xl overflow-hidden aspect-square shadow-md group">
-                <img
-                  src={IMAGES.hue}
-                  alt="Team Building Bãi Biển"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                <span className="absolute bottom-3 left-3 text-xs font-extrabold text-white">
-                  Team Building Bãi Biển
-                </span>
-              </div>
-
-              <div className="relative rounded-3xl overflow-hidden aspect-square shadow-md group">
-                <img
-                  src={IMAGES.bana}
-                  alt="Hội Nghị MICE"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                <span className="absolute bottom-3 left-3 text-xs font-extrabold text-white">
-                  Hội Nghị & Đón VIP
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 5. DỊCH VỤ 4: ĐẶT PHÒNG KHÁCH SẠN & VÉ THAM QUAN GIA ĐẠI LÝ ────────── */}
-      <section className="py-14 sm:py-24 bg-[#E5E7EB]/40">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-8 space-y-12">
-          <div className="text-center space-y-2">
-            <span className="text-[11px] font-extrabold uppercase tracking-[0.25em] text-[#43563A]">
-              MẢNG DỊCH VỤ 04
-            </span>
-            <h2 className="text-2xl sm:text-4xl font-black text-[#111827] tracking-tight">
-              Hỗ Trợ Đặt Phòng Khách Sạn & Vé Tham Quan
-            </h2>
-            <p
-              className="text-xs sm:text-sm text-[#4B5563] max-w-xl mx-auto"
-              style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-            >
-              Sử dụng lẻ từng dịch vụ theo nhu cầu hoặc kết hợp trọn gói với giá đại lý chiết khấu trực tiếp.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {SUPPORT_SERVICES_LIST.map((srv, idx) => (
-              <div
-                key={idx}
-                className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E5E7EB] shadow-sm flex flex-col justify-between space-y-6"
+              <a
+                href="tel:0768643446"
+                className="w-full sm:w-auto bg-white/15 hover:bg-white text-white hover:text-[#43563A] border border-white/25 backdrop-blur-md font-bold py-4 px-7 rounded-full flex items-center justify-center gap-2.5 transition-all cursor-pointer min-h-[48px]"
               >
-                <div className="space-y-4">
-                  <div className="relative rounded-2xl overflow-hidden aspect-[16/9]">
-                    <img
-                      src={srv.img}
-                      alt={srv.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
-                  <h3 className="font-black text-xl text-[#111827]">{srv.title}</h3>
-                  <p
-                    className="text-xs sm:text-sm text-[#4B5563] leading-relaxed"
-                    style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-                  >
-                    {srv.desc}
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-2 border-t border-[#F3F4F6] pt-4">
-                    {srv.details.map((d) => (
-                      <div key={d} className="flex items-center gap-2">
-                        <CheckCircle2 size={13} className="text-[#43563A] flex-none" />
-                        <span
-                          className="text-xs text-[#374151] font-semibold"
-                          style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-                        >
-                          {d}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <button
-                  onClick={onOpenQuote}
-                  className="w-full bg-[#43563A] hover:bg-[#34452F] text-white font-extrabold text-xs py-3.5 rounded-xl transition-all cursor-pointer"
-                >
-                  Yêu cầu dịch vụ này
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 6. FORM ĐĂNG KÝ VÀ TƯ VẤN TRỰC TIẾP (CONVERSION SECTION) ───────────── */}
-      <section className="py-14 sm:py-24 bg-[#1f2a1b] text-white relative overflow-hidden">
-        <div className="max-w-[1320px] mx-auto px-4 sm:px-6 md:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left Contact Details */}
-            <div className="space-y-6">
-              <div className="space-y-3">
-                <span className="bg-white/15 border border-white/25 text-white text-[10px] font-extrabold uppercase tracking-[0.2em] px-3.5 py-1 rounded-full inline-block">
-                  TƯ VẤN TRỰC TIẾP 24/7
-                </span>
-                <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight leading-tight">
-                  Bạn Cần Đặt Tour, Thuê Xe Hay Nhận Báo Giá Chi Tiết?
-                </h2>
-                <p
-                  className="text-xs sm:text-sm text-white/80 leading-relaxed"
-                  style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-                >
-                  Đội ngũ Angel One Travel sẽ liên hệ lại trong 15 phút để giải đáp và gửi lịch trình kèm báo giá tốt nhất cho chuyến đi của bạn.
-                </p>
-              </div>
-
-              <div className="space-y-3">
-                <a
-                  href="tel:0768643446"
-                  className="flex items-center gap-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-2xl px-5 py-4 transition-all cursor-pointer group"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-[#43563A] text-white flex items-center justify-center flex-none">
-                    <PhoneCall size={18} />
-                  </div>
-                  <div>
-                    <div className="text-sm font-extrabold text-white">Hotline tư vấn 24/7</div>
-                    <div
-                      className="text-xs text-white/70"
-                      style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-                    >
-                      0768 643 446 (Tư vấn viên trực tuyến)
-                    </div>
-                  </div>
-                  <ChevronRight size={16} className="ml-auto text-white/50 group-hover:translate-x-1 transition-transform" />
-                </a>
-
-                <div className="flex items-center gap-4 bg-white/10 border border-white/20 rounded-2xl px-5 py-4">
-                  <div className="w-10 h-10 rounded-xl bg-[#43563A] text-white flex items-center justify-center flex-none">
-                    <MessageSquare size={18} />
-                  </div>
-                  <div>
-                    <div className="text-sm font-extrabold text-white">Nhắn tin Zalo Official</div>
-                    <div
-                      className="text-xs text-white/70"
-                      style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-                    >
-                      Nhận bảng báo giá & hình ảnh xe trực tiếp
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <PhoneCall size={17} />
+                <span>Hotline: 0768 643 446</span>
+              </a>
             </div>
-
-            {/* Right Quote Request Form */}
-            <form
-              onSubmit={handleFormSubmit}
-              className="bg-white text-[#111827] rounded-3xl p-6 sm:p-8 space-y-4 shadow-2xl"
-            >
-              <h3 className="font-black text-lg text-[#111827]">Nhận Phương Án & Báo Giá</h3>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div className="col-span-2 sm:col-span-1">
-                  <label className="text-[10px] font-extrabold text-[#374151] uppercase tracking-wider block mb-1">
-                    Họ và tên *
-                  </label>
-                  <input
-                    name="name"
-                    value={formData.name}
-                    onChange={handleFormChange}
-                    required
-                    placeholder="Nguyễn Văn A"
-                    className="w-full text-sm border border-[#E5E7EB] rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-[#43563A] bg-[#FAF9F5]"
-                  />
-                </div>
-
-                <div className="col-span-2 sm:col-span-1">
-                  <label className="text-[10px] font-extrabold text-[#374151] uppercase tracking-wider block mb-1">
-                    Số điện thoại *
-                  </label>
-                  <input
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleFormChange}
-                    required
-                    placeholder="0768 643 446"
-                    className="w-full text-sm border border-[#E5E7EB] rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-[#43563A] bg-[#FAF9F5]"
-                  />
-                </div>
-
-                <div className="col-span-2">
-                  <label className="text-[10px] font-extrabold text-[#374151] uppercase tracking-wider block mb-1">
-                    Dịch vụ bạn quan tâm
-                  </label>
-                  <select
-                    name="service"
-                    value={formData.service}
-                    onChange={handleFormChange}
-                    className="w-full text-sm border border-[#E5E7EB] rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-[#43563A] bg-[#FAF9F5] text-[#374151]"
-                  >
-                    <option value="">Chọn dịch vụ...</option>
-                    <option>Tour du lịch trọn gói / Tour riêng</option>
-                    <option>Cho thuê xe du lịch 4–45 chỗ & Limousine</option>
-                    <option>Dịch vụ Doanh nghiệp (MICE, Team Building)</option>
-                    <option>Đặt phòng Khách sạn & Vé tham quan</option>
-                  </select>
-                </div>
-
-                <div className="col-span-2 sm:col-span-1">
-                  <label className="text-[10px] font-extrabold text-[#374151] uppercase tracking-wider block mb-1">
-                    Điểm đến dự kiến
-                  </label>
-                  <input
-                    name="destination"
-                    value={formData.destination}
-                    onChange={handleFormChange}
-                    placeholder="Đà Nẵng, Phú Quốc..."
-                    className="w-full text-sm border border-[#E5E7EB] rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-[#43563A] bg-[#FAF9F5]"
-                  />
-                </div>
-
-                <div className="col-span-2 sm:col-span-1">
-                  <label className="text-[10px] font-extrabold text-[#374151] uppercase tracking-wider block mb-1">
-                    Số lượng khách
-                  </label>
-                  <input
-                    name="guests"
-                    value={formData.guests}
-                    onChange={handleFormChange}
-                    placeholder="VD: 2 người, 15 người..."
-                    className="w-full text-sm border border-[#E5E7EB] rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-[#43563A] bg-[#FAF9F5]"
-                  />
-                </div>
-
-                <div className="col-span-2">
-                  <label className="text-[10px] font-extrabold text-[#374151] uppercase tracking-wider block mb-1">
-                    Ghi chú nhu cầu thêm
-                  </label>
-                  <textarea
-                    name="note"
-                    value={formData.note}
-                    onChange={handleFormChange}
-                    rows={2}
-                    placeholder="Mô tả ngày dự kiến đi hoặc các yêu cầu riêng..."
-                    className="w-full text-sm border border-[#E5E7EB] rounded-xl px-3.5 py-2.5 focus:outline-none focus:border-[#43563A] bg-[#FAF9F5] resize-none"
-                  />
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                className="w-full bg-[#43563A] hover:bg-[#34452F] text-white font-extrabold text-sm py-3.5 rounded-xl transition-all cursor-pointer inline-flex items-center justify-center gap-2 group shadow-md"
-              >
-                <span>Nhận Đề Xuất & Báo Giá Chi Tiết</span>
-                <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-            </form>
           </div>
         </div>
       </section>
