@@ -11,27 +11,27 @@ const DESTINATIONS: DestinationItem[] = [
   {
     id: "danang",
     name: "DA NANG",
-    image: "/destinations/danang_bg.jpg",
+    image: "/destinations/danang_bg.webp",
   },
   {
     id: "hoian",
     name: "HOI AN",
-    image: "/destinations/hoian_bg.jpg",
+    image: "/destinations/hoian_bg.webp",
   },
   {
     id: "hue",
     name: "HUE",
-    image: "/destinations/hue_bg.jpg",
+    image: "/destinations/hue_bg.webp",
   },
   {
     id: "quangbinh",
     name: "QUANG BINH",
-    image: "/destinations/quangbinh_bg.jpg",
+    image: "/destinations/quangbinh_bg.webp",
   },
   {
     id: "quynhon",
     name: "QUY NHON",
-    image: "/destinations/quynhon_bg.jpg",
+    image: "/destinations/quynhon_bg.webp",
   },
 ];
 
@@ -124,7 +124,7 @@ export const InteractiveTravelerSlider: React.FC<InteractiveTravelerSliderProps>
       {/* ── LỚP 3: NHÂN VẬT CỐ ĐỊNH CHÍNH GIỮA (DESKTOP 100% LOCKED: lg:-bottom-[380px] lg:h-[980px], MOBILE RESIZED PERFECTLY) ── */}
       <div className="absolute -bottom-[210px] sm:-bottom-[290px] lg:-bottom-[380px] left-1/2 -translate-x-1/2 z-30 pointer-events-none flex justify-center items-end h-[560px] sm:h-[760px] lg:h-[980px]">
         <img
-          src="/destinations/traveler_cutout.png"
+          src="/destinations/traveler_cutout.webp"
           alt="Angel One Traveler"
           className="h-full w-auto max-w-none object-contain object-bottom drop-shadow-[0_35px_70px_rgba(0,0,0,0.85)] filter brightness-105 contrast-105"
         />
