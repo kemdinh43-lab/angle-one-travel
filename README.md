@@ -39,7 +39,7 @@ The build output includes `dist/.vite/manifest.json`, which should be used by a 
 
 This repository includes two WordPress packages:
 
-- `wordpress/angel-one-core`: registers travel Custom Post Types, taxonomies, and ACF field groups.
+- `wordpress/angel-one-core`: registers travel Custom Post Types, taxonomies, native meta boxes, REST API routes, and optional ACF field groups.
 - `wordpress/angel-one-theme`: bridge theme that mounts the current Vite/React frontend inside WordPress and loads built assets from `build/.vite/manifest.json`.
 
 Before packaging the theme for WordPress, run:
@@ -50,11 +50,24 @@ npm run build
 
 Then copy the generated `dist` folder into the theme as `wordpress/angel-one-theme/build`.
 
+After activating the core plugin, seed the first structured content set with:
+
+```bash
+wp angel-one seed --yes --allow-root
+```
+
+The frontend-ready content endpoint is:
+
+```text
+/wp-json/angel-one/v1/content
+```
+
 ## WordPress Migration Direction
 
 Recommended structure:
 
 - Plugin/core layer: register Custom Post Types, taxonomies, and ACF field groups.
+- Native WordPress meta boxes: manage repeatable tour data without requiring ACF Pro.
 - Theme layer: render templates and enqueue Vite assets using the build manifest.
 - WordPress admin: manage tour, destination, service, and blog content.
 - React/Vite: handle interactive UI and visual presentation only.

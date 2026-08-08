@@ -18,17 +18,25 @@ if (file_exists(__DIR__ . '/acf-fields.php')) {
     require_once __DIR__ . '/acf-fields.php';
 }
 
+foreach (['meta-boxes.php', 'rest-api.php', 'seed-data.php'] as $angel_one_include) {
+    $angel_one_include_path = __DIR__ . '/' . $angel_one_include;
+
+    if (file_exists($angel_one_include_path)) {
+        require_once $angel_one_include_path;
+    }
+}
+
 function angel_one_register_content_types(): void
 {
     register_post_type('angel_tour', [
         'labels' => [
             'name' => 'Tours',
             'singular_name' => 'Tour',
-            'add_new_item' => 'Add New Tour',
-            'edit_item' => 'Edit Tour',
-            'new_item' => 'New Tour',
-            'view_item' => 'View Tour',
-            'search_items' => 'Search Tours',
+            'add_new_item' => 'Thêm tour mới',
+            'edit_item' => 'Sửa tour',
+            'new_item' => 'Tour mới',
+            'view_item' => 'Xem tour',
+            'search_items' => 'Tìm tour',
         ],
         'public' => true,
         'has_archive' => true,
@@ -43,13 +51,13 @@ function angel_one_register_content_types(): void
 
     register_post_type('angel_destination', [
         'labels' => [
-            'name' => 'Destinations',
-            'singular_name' => 'Destination',
-            'add_new_item' => 'Add New Destination',
-            'edit_item' => 'Edit Destination',
-            'new_item' => 'New Destination',
-            'view_item' => 'View Destination',
-            'search_items' => 'Search Destinations',
+            'name' => 'Điểm đến',
+            'singular_name' => 'Điểm đến',
+            'add_new_item' => 'Thêm điểm đến mới',
+            'edit_item' => 'Sửa điểm đến',
+            'new_item' => 'Điểm đến mới',
+            'view_item' => 'Xem điểm đến',
+            'search_items' => 'Tìm điểm đến',
         ],
         'public' => true,
         'has_archive' => true,
@@ -64,13 +72,13 @@ function angel_one_register_content_types(): void
 
     register_post_type('angel_service', [
         'labels' => [
-            'name' => 'Services',
-            'singular_name' => 'Service',
-            'add_new_item' => 'Add New Service',
-            'edit_item' => 'Edit Service',
-            'new_item' => 'New Service',
-            'view_item' => 'View Service',
-            'search_items' => 'Search Services',
+            'name' => 'Dịch vụ',
+            'singular_name' => 'Dịch vụ',
+            'add_new_item' => 'Thêm dịch vụ mới',
+            'edit_item' => 'Sửa dịch vụ',
+            'new_item' => 'Dịch vụ mới',
+            'view_item' => 'Xem dịch vụ',
+            'search_items' => 'Tìm dịch vụ',
         ],
         'public' => true,
         'has_archive' => true,

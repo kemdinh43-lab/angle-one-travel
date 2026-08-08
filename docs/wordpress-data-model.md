@@ -2,6 +2,8 @@
 
 This project keeps the current React/Vite interface, but content is now modeled so it can be migrated to WordPress admin cleanly.
 
+The current implementation uses native WordPress meta boxes for structured fields, so the management layer does not require paid ACF Pro repeater fields. The optional ACF field definitions remain available for teams that already use ACF Pro.
+
 ## Brand Name
 
 Use **Angel One Travel** consistently across code, SEO, WordPress labels, and content.
@@ -11,6 +13,8 @@ Use **Angel One Travel** consistently across code, SEO, WordPress labels, and co
 - UI seed data: `src/data/travelData.ts`
 - WordPress-ready mapping: `src/data/wordpressData.ts`
 - Shared TypeScript types: `src/types/travel.ts`
+- WordPress core plugin: `wordpress/angel-one-core`
+- WordPress REST endpoint: `/wp-json/angel-one/v1/content`
 
 The UI can continue using `travelData.ts`. WordPress migration/import work should use `wordpressData.ts`.
 
@@ -48,6 +52,8 @@ The UI can continue using `travelData.ts`. WordPress migration/import work shoul
 | Blog archive | `/cam-nang-du-lich/` |
 
 ## Tour ACF Fields
+
+These field names are mirrored by native meta boxes with the `angel_` prefix in WordPress post meta.
 
 | Field | Type | Required |
 | --- | --- | --- |
@@ -98,6 +104,8 @@ The UI can continue using `travelData.ts`. WordPress migration/import work shoul
 
 ## Migration Notes
 
+- Run `wp angel-one seed --yes --allow-root` after activating the core plugin to create the first editable content set.
+- Keep frontend design components unchanged while replacing hardcoded `src/data` reads with the WordPress REST endpoint.
 - Do not import price as display text only. Keep `price_from` as a number and `price_label` for UI display.
 - Do not keep `domestic` / `international` as a plain field in WordPress. Use `angel_tour_category`.
 - Do not keep itinerary as one HTML block. Use a repeater per day.
