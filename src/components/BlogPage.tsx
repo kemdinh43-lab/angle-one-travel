@@ -11,7 +11,8 @@ import {
   Share2,
   Facebook,
   Instagram,
-  MessageCircle
+  MessageCircle,
+  Sparkles
 } from "lucide-react";
 import { IMAGES } from "../data/travelData";
 
@@ -262,7 +263,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
   };
 
   // ═════════════════════════════════════════════════════════════════════════
-  // PURE MINIMALIST UNBOXED ARTICLE DETAIL VIEW (100% MATCHING REFERENCE IMAGE)
+  // ARTICLE DETAIL VIEW WITH SUBMERGED HERO BACKGROUND (HOMEPAGE HERO STYLE)
   // ═════════════════════════════════════════════════════════════════════════
   if (activeArticle) {
     const relatedArticles = BLOG_ARTICLES.filter((a) => a.id !== activeArticle.id).slice(0, 3);
@@ -270,47 +271,59 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
     return (
       <div className="min-h-screen bg-white text-[#111827]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
         
-        {/* Top Back Navigation Line */}
-        <div className="max-w-4xl mx-auto px-4 pt-8 pb-4">
-          <button
-            onClick={() => setActiveArticle(null)}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-colors cursor-pointer"
-          >
-            <ArrowLeft size={14} />
-            <span>Back</span>
-          </button>
-        </div>
+        {/* ── HERO SECTION WITH SUBMERGED ARTICLE IMAGE BACKGROUND ───────────── */}
+        <section className="relative w-full overflow-hidden bg-[#1a2318] text-white pt-28 pb-16 sm:pt-36 sm:pb-20">
+          {/* Article's Image as Submerged Ambient Background Photo */}
+          <img
+            src={activeArticle.image}
+            alt={activeArticle.title}
+            className="absolute inset-0 w-full h-full object-cover object-center scale-105"
+          />
+          {/* Dark Vignette Overlay */}
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/45 to-[#1a2318]/95" />
 
-        {/* ── UNBOXED MINIMALIST ARTICLE HEADER ───────────────────────────── */}
-        <header className="pt-4 pb-8 px-4 max-w-3xl mx-auto text-center space-y-4">
-          <span className="px-3 py-1 rounded-full bg-[#F3F4F6] text-[#4B5563] text-[11px] font-semibold tracking-wider uppercase inline-block">
-            {activeArticle.category}
-          </span>
+          {/* Hero Content */}
+          <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 text-center space-y-4">
+            
+            {/* Top Back Navigation Pill */}
+            <div className="inline-block mb-2">
+              <button
+                onClick={() => setActiveArticle(null)}
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-white/90 hover:text-white bg-white/10 hover:bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 transition-all cursor-pointer"
+              >
+                <ArrowLeft size={14} />
+                <span>Quay lại danh sách cẩm nang</span>
+              </button>
+            </div>
 
-          <h1 className="text-[clamp(28px,4vw,48px)] font-bold text-[#111827] tracking-tight leading-[1.15] max-w-3xl mx-auto">
-            {activeArticle.title}
-          </h1>
+            {/* Category Tag */}
+            <div className="block">
+              <span className="inline-block px-3.5 py-1 rounded-full bg-white/15 backdrop-blur-md text-[#DDE3D6] border border-white/20 text-xs font-bold uppercase tracking-widest">
+                {activeArticle.category}
+              </span>
+            </div>
 
-          <div className="text-xs text-[#6B7280] flex items-center justify-center gap-2 pt-1 font-medium">
-            <span>{activeArticle.date}</span>
-            <span>•</span>
-            <span>{activeArticle.readTime}</span>
+            {/* Article Title */}
+            <h1 className="text-[clamp(28px,4.5vw,54px)] font-extrabold text-white tracking-[-0.03em] leading-[1.12] max-w-4xl mx-auto drop-shadow-md">
+              {activeArticle.title}
+            </h1>
+
+            {/* Article Meta Info */}
+            <div className="flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm text-[#DDE3D6]/90 font-medium pt-2">
+              <span>Tác giả: <strong className="text-white">{activeArticle.author}</strong></span>
+              <span>•</span>
+              <span>{activeArticle.date}</span>
+              <span>•</span>
+              <span className="flex items-center gap-1"><Clock size={13} /> {activeArticle.readTime}</span>
+              <span>•</span>
+              <span className="flex items-center gap-1"><Eye size={13} /> {activeArticle.views}</span>
+            </div>
           </div>
-        </header>
+        </section>
 
-        {/* ── HERO COVER IMAGE (UNBOXED MINIMALISM) ───────────────────────── */}
-        <div className="max-w-4xl mx-auto px-4 mb-12">
-          <div className="aspect-[16/9] rounded-2xl overflow-hidden bg-[#F3F4F6] relative shadow-xs">
-            <img
-              src={activeArticle.image}
-              alt={activeArticle.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-
-        {/* ── TWO-COLUMN UNBOXED CONTENT LAYOUT (MATCHING REFERENCE IMAGE 100%) ── */}
-        <main className="max-w-4xl mx-auto px-4 pb-20">
+        {/* ── TWO-COLUMN UNBOXED CONTENT LAYOUT ───────────────────────────── */}
+        <main className="max-w-4xl mx-auto px-4 pt-12 pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-10 lg:gap-14 items-start">
             
             {/* ── LEFT SIDEBAR: UNBOXED STICKY TOC & SOCIAL SHARE ─────────── */}
@@ -341,7 +354,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
               {/* Minimalist Social Share Bar */}
               <div className="space-y-2.5 pt-2">
                 <span className="text-[11px] font-semibold text-[#6B7280] block">
-                  Share Article
+                  Chia sẻ bài viết
                 </span>
                 
                 <div className="flex items-center gap-2">
@@ -349,27 +362,27 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
                     href="https://facebook.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="w-7 h-7 rounded-full bg-[#E11D48] text-white flex items-center justify-center hover:opacity-85 transition-opacity"
-                    title="Share on Instagram"
+                    className="w-7 h-7 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:opacity-85 transition-opacity"
+                    title="Chia sẻ qua Facebook"
                   >
-                    <Instagram size={13} />
+                    <Facebook size={13} />
                   </a>
                   <a
                     href="https://zalo.me/0768643446"
                     target="_blank"
                     rel="noreferrer"
-                    className="w-7 h-7 rounded-full bg-[#0284C7] text-white flex items-center justify-center hover:opacity-85 transition-opacity"
-                    title="Share on Zalo"
+                    className="w-7 h-7 rounded-full bg-[#0068FF] text-white flex items-center justify-center hover:opacity-85 transition-opacity"
+                    title="Gửi tin qua Zalo"
                   >
                     <MessageCircle size={13} />
                   </a>
                   <button
                     onClick={() => {
                       navigator.clipboard?.writeText(window.location.href);
-                      alert("Copied article link!");
+                      alert("Đã sao chép liên kết bài viết!");
                     }}
                     className="w-7 h-7 rounded-full bg-[#111827] text-white flex items-center justify-center hover:opacity-85 transition-opacity cursor-pointer"
-                    title="Copy Link"
+                    title="Sao chép liên kết"
                   >
                     <Share2 size={13} />
                   </button>
@@ -429,7 +442,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
               {/* Conclusion Text */}
               <div className="pt-8 border-t border-[#E5E7EB] space-y-2">
                 <p className="text-sm sm:text-base font-semibold text-[#111827] leading-relaxed">
-                  {activeArticle.content.conclusion}
+                  💡 Lời khuyên từ Angel One Travel: {activeArticle.content.conclusion}
                 </p>
               </div>
 
@@ -442,7 +455,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
         <section className="border-t border-[#E5E7EB] py-16 bg-[#FAFAFA]">
           <div className="max-w-4xl mx-auto px-4">
             <h3 className="text-xl font-bold text-[#111827] mb-8 tracking-tight">
-              Related Articles
+              Bài viết cẩm nang liên quan
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
