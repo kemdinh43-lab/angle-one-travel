@@ -12,7 +12,7 @@ import {
   Facebook,
   Instagram,
   MessageCircle,
-  Sparkles
+  User
 } from "lucide-react";
 import { IMAGES } from "../data/travelData";
 
@@ -263,74 +263,89 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
   };
 
   // ═════════════════════════════════════════════════════════════════════════
-  // ARTICLE DETAIL VIEW WITH SUBMERGED HERO BACKGROUND (HOMEPAGE HERO STYLE)
+  // LUXURY EDITORIAL ARTICLE DETAIL VIEW WITH CINEMATIC HERO
   // ═════════════════════════════════════════════════════════════════════════
   if (activeArticle) {
     const relatedArticles = BLOG_ARTICLES.filter((a) => a.id !== activeArticle.id).slice(0, 3);
 
     return (
-      <div className="min-h-screen bg-white text-[#111827]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
+      <div className="min-h-screen bg-[#FAF9F5] text-[#111827]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
         
-        {/* ── HERO SECTION WITH SUBMERGED ARTICLE IMAGE BACKGROUND ───────────── */}
-        <section className="relative w-full overflow-hidden bg-[#1a2318] text-white pt-28 pb-16 sm:pt-36 sm:pb-20">
-          {/* Article's Image as Submerged Ambient Background Photo */}
+        {/* ── CINEMATIC HERO HEADER WITH SUBMERGED ARTICLE IMAGE ───────────── */}
+        <section className="relative w-full min-h-[55vh] lg:min-h-[60vh] flex items-center justify-center overflow-hidden bg-[#162013] text-white pt-28 pb-16">
+          {/* Article's Feature Image as Submerged Ambient Background */}
           <img
             src={activeArticle.image}
             alt={activeArticle.title}
             className="absolute inset-0 w-full h-full object-cover object-center scale-105"
           />
-          {/* Dark Vignette Overlay */}
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-xs" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/45 to-[#1a2318]/95" />
+          {/* Soft Vignette Overlay */}
+          <div className="absolute inset-0 bg-black/55 backdrop-blur-[1px]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/45 to-[#FAF9F5]" />
 
-          {/* Hero Content */}
-          <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 text-center space-y-4">
+          {/* Hero Inner Container */}
+          <div className="relative z-10 w-full max-w-[1240px] mx-auto px-4 sm:px-6 md:px-10 flex flex-col items-center text-center space-y-5">
             
             {/* Top Back Navigation Pill */}
-            <div className="inline-block mb-2">
-              <button
-                onClick={() => setActiveArticle(null)}
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-white/90 hover:text-white bg-white/10 hover:bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/20 transition-all cursor-pointer"
-              >
-                <ArrowLeft size={14} />
-                <span>Quay lại danh sách cẩm nang</span>
-              </button>
-            </div>
+            <button
+              onClick={() => setActiveArticle(null)}
+              className="inline-flex items-center gap-2 text-xs font-bold text-white hover:text-[#A3B89A] bg-white/10 hover:bg-white/20 backdrop-blur-md px-4 py-2 rounded-full border border-white/25 transition-all cursor-pointer shadow-sm mb-2"
+            >
+              <ArrowLeft size={14} />
+              <span>Quay lại danh sách cẩm nang</span>
+            </button>
 
-            {/* Category Tag */}
-            <div className="block">
-              <span className="inline-block px-3.5 py-1 rounded-full bg-white/15 backdrop-blur-md text-[#DDE3D6] border border-white/20 text-xs font-bold uppercase tracking-widest">
+            {/* Category Tag Pill */}
+            <div>
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#A3B89A]/20 backdrop-blur-md text-[#A3B89A] border border-[#A3B89A]/30 text-xs font-bold uppercase tracking-widest shadow-xs">
                 {activeArticle.category}
               </span>
             </div>
 
-            {/* Article Title */}
-            <h1 className="text-[clamp(28px,4.5vw,54px)] font-extrabold text-white tracking-[-0.03em] leading-[1.12] max-w-4xl mx-auto drop-shadow-md">
+            {/* Magnificent Article Title */}
+            <h1 className="text-[clamp(26px,4.5vw,52px)] font-extrabold text-white tracking-[-0.03em] leading-[1.15] max-w-4xl mx-auto drop-shadow-md">
               {activeArticle.title}
             </h1>
 
-            {/* Article Meta Info */}
-            <div className="flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm text-[#DDE3D6]/90 font-medium pt-2">
-              <span>Tác giả: <strong className="text-white">{activeArticle.author}</strong></span>
+            {/* Meta Info Row */}
+            <div className="flex flex-wrap items-center justify-center gap-4 text-xs sm:text-sm text-white/90 font-medium pt-2">
+              <span className="flex items-center gap-1.5">
+                <User size={14} className="text-[#A3B89A]" />
+                <strong>{activeArticle.author}</strong>
+              </span>
               <span>•</span>
-              <span>{activeArticle.date}</span>
+              <span className="flex items-center gap-1.5">
+                <Calendar size={14} className="text-[#A3B89A]" />
+                {activeArticle.date}
+              </span>
               <span>•</span>
-              <span className="flex items-center gap-1"><Clock size={13} /> {activeArticle.readTime}</span>
+              <span className="flex items-center gap-1.5">
+                <Clock size={14} className="text-[#A3B89A]" />
+                {activeArticle.readTime}
+              </span>
               <span>•</span>
-              <span className="flex items-center gap-1"><Eye size={13} /> {activeArticle.views}</span>
+              <span className="flex items-center gap-1.5">
+                <Eye size={14} className="text-[#A3B89A]" />
+                {activeArticle.views}
+              </span>
             </div>
+
           </div>
         </section>
 
-        {/* ── TWO-COLUMN UNBOXED CONTENT LAYOUT ───────────────────────────── */}
+        {/* ── TWO-COLUMN UNBOXED READING STAGE ───────────────────────────── */}
         <main className="max-w-4xl mx-auto px-4 pt-12 pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-10 lg:gap-14 items-start">
             
-            {/* ── LEFT SIDEBAR: UNBOXED STICKY TOC & SOCIAL SHARE ─────────── */}
+            {/* ── LEFT SIDEBAR: STICKY TOC & SOCIAL SHARE ────────────────── */}
             <aside className="lg:sticky lg:top-24 space-y-8">
               
-              {/* Clean Table of Contents Links */}
+              {/* Table of Contents Links */}
               <div className="space-y-3">
+                <span className="text-[11px] font-mono font-extrabold uppercase tracking-widest text-[#787D75] block pb-1 border-b border-[#D9D8D0]">
+                  Mục lục bài viết
+                </span>
+
                 <nav className="space-y-1 text-xs">
                   {activeArticle.content.sections.map((sec) => {
                     const isActive = activeHeadingId === sec.id;
@@ -340,7 +355,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
                         onClick={() => scrollToSection(sec.id)}
                         className={`w-full text-left leading-relaxed transition-all cursor-pointer block pl-3 py-1 border-l-2 ${
                           isActive
-                            ? "border-[#111827] text-[#111827] font-semibold"
+                            ? "border-[#43563A] text-[#43563A] font-extrabold"
                             : "border-transparent text-[#6B7280] font-normal hover:text-[#111827]"
                         }`}
                       >
@@ -352,8 +367,8 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
               </div>
 
               {/* Minimalist Social Share Bar */}
-              <div className="space-y-2.5 pt-2">
-                <span className="text-[11px] font-semibold text-[#6B7280] block">
+              <div className="space-y-2.5 pt-2 border-t border-[#D9D8D0]">
+                <span className="text-[11px] font-mono font-extrabold uppercase tracking-widest text-[#787D75] block">
                   Chia sẻ bài viết
                 </span>
                 
@@ -362,29 +377,29 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
                     href="https://facebook.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="w-7 h-7 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:opacity-85 transition-opacity"
+                    className="w-8 h-8 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:opacity-85 transition-opacity shadow-xs"
                     title="Chia sẻ qua Facebook"
                   >
-                    <Facebook size={13} />
+                    <Facebook size={14} />
                   </a>
                   <a
                     href="https://zalo.me/0768643446"
                     target="_blank"
                     rel="noreferrer"
-                    className="w-7 h-7 rounded-full bg-[#0068FF] text-white flex items-center justify-center hover:opacity-85 transition-opacity"
+                    className="w-8 h-8 rounded-full bg-[#0068FF] text-white flex items-center justify-center hover:opacity-85 transition-opacity shadow-xs"
                     title="Gửi tin qua Zalo"
                   >
-                    <MessageCircle size={13} />
+                    <MessageCircle size={14} />
                   </a>
                   <button
                     onClick={() => {
                       navigator.clipboard?.writeText(window.location.href);
                       alert("Đã sao chép liên kết bài viết!");
                     }}
-                    className="w-7 h-7 rounded-full bg-[#111827] text-white flex items-center justify-center hover:opacity-85 transition-opacity cursor-pointer"
+                    className="w-8 h-8 rounded-full bg-[#22251F] text-white flex items-center justify-center hover:opacity-85 transition-opacity cursor-pointer shadow-xs"
                     title="Sao chép liên kết"
                   >
-                    <Share2 size={13} />
+                    <Share2 size={14} />
                   </button>
                 </div>
               </div>
@@ -395,14 +410,14 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
             <article className="space-y-8 text-[#374151]">
               
               {/* Lead Intro Paragraph */}
-              <p className="text-base sm:text-lg text-[#374151] leading-relaxed font-normal">
-                {activeArticle.content.intro}
+              <p className="text-base sm:text-lg text-[#22251F] leading-relaxed font-medium italic border-l-4 border-[#43563A] pl-4">
+                "{activeArticle.content.intro}"
               </p>
 
               {/* Sections */}
               {activeArticle.content.sections.map((sec) => (
                 <section key={sec.id} id={sec.id} className="space-y-3 pt-2 scroll-mt-24">
-                  <h2 className="text-xl sm:text-2xl font-bold text-[#111827] tracking-tight leading-snug">
+                  <h2 className="text-xl sm:text-2xl font-extrabold text-[#111827] tracking-tight leading-snug">
                     {sec.heading}
                   </h2>
 
@@ -412,14 +427,14 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
 
                   {/* Clean Figure Image */}
                   {sec.image && (
-                    <figure className="my-6 rounded-xl overflow-hidden bg-[#F3F4F6]">
+                    <figure className="my-6 rounded-2xl overflow-hidden bg-[#F3F4F6] border border-[#D9D8D0] shadow-2xs">
                       <img
                         src={sec.image}
                         alt={sec.heading}
-                        className="w-full h-auto max-h-[400px] object-cover"
+                        className="w-full h-auto max-h-[420px] object-cover"
                       />
                       {sec.imageCaption && (
-                        <figcaption className="p-2.5 text-center text-xs text-[#6B7280] italic">
+                        <figcaption className="p-3 text-center text-xs text-[#6B7280] italic bg-[#FAF9F5]">
                           {sec.imageCaption}
                         </figcaption>
                       )}
@@ -440,10 +455,28 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
               ))}
 
               {/* Conclusion Text */}
-              <div className="pt-8 border-t border-[#E5E7EB] space-y-2">
-                <p className="text-sm sm:text-base font-semibold text-[#111827] leading-relaxed">
+              <div className="pt-8 border-t border-[#D9D8D0] space-y-2">
+                <p className="text-sm sm:text-base font-extrabold text-[#43563A] leading-relaxed">
                   💡 Lời khuyên từ Angel One Travel: {activeArticle.content.conclusion}
                 </p>
+              </div>
+
+              {/* Bottom Consultation Action Button */}
+              <div className="pt-6 border-t border-[#D9D8D0] flex flex-col sm:flex-row items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-[#D9D8D0]">
+                <div>
+                  <h4 className="font-extrabold text-sm text-[#22251F]">Bạn cần thiết kế chuyến đi theo ý muốn?</h4>
+                  <p className="text-xs text-[#787D75]">
+                    Đội ngũ Angel One Travel sẵn sàng hỗ trợ bạn 24/7 hoàn toàn miễn phí.
+                  </p>
+                </div>
+
+                <button
+                  onClick={onOpenQuote}
+                  className="w-full sm:w-auto bg-[#43563A] hover:bg-[#34452F] text-white font-extrabold py-3 px-6 rounded-full text-xs sm:text-sm transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
+                >
+                  <span>Nhận báo giá ngay</span>
+                  <ArrowUpRight size={16} />
+                </button>
               </div>
 
             </article>
@@ -452,9 +485,9 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
         </main>
 
         {/* ── UNBOXED RELATED ARTICLES AT BOTTOM ──────────────────────────── */}
-        <section className="border-t border-[#E5E7EB] py-16 bg-[#FAFAFA]">
+        <section className="border-t border-[#D9D8D0] py-16 bg-white">
           <div className="max-w-4xl mx-auto px-4">
-            <h3 className="text-xl font-bold text-[#111827] mb-8 tracking-tight">
+            <h3 className="text-xl font-extrabold text-[#111827] mb-8 tracking-tight">
               Bài viết cẩm nang liên quan
             </h3>
 
@@ -465,7 +498,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
                   onClick={() => setActiveArticle(art)}
                   className="group cursor-pointer space-y-3"
                 >
-                  <div className="aspect-[4/3] rounded-xl overflow-hidden bg-[#F3F4F6]">
+                  <div className="aspect-[4/3] rounded-2xl overflow-hidden bg-[#F3F4F6] border border-[#D9D8D0]">
                     <img
                       src={art.image}
                       alt={art.title}
@@ -473,10 +506,10 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
                     />
                   </div>
                   <div className="space-y-1">
-                    <span className="text-[11px] font-semibold text-[#6B7280] uppercase tracking-wider block">
+                    <span className="text-[11px] font-bold text-[#43563A] uppercase tracking-wider block">
                       {art.category}
                     </span>
-                    <h4 className="font-bold text-sm text-[#111827] line-clamp-2 group-hover:text-[#43563A] transition-colors leading-snug">
+                    <h4 className="font-extrabold text-sm text-[#111827] line-clamp-2 group-hover:text-[#43563A] transition-colors leading-snug">
                       {art.title}
                     </h4>
                   </div>
@@ -675,7 +708,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
 
                   <button
                     type="submit"
-                    className="w-full bg-[#43563A] hover:bg-[#34452F] text-white rounded-full py-3.5 px-6 text-xs sm:text-sm font-extrabold transition-all duration-300 shadow-xl cursor-pointer flex items-center justify-center gap-2"
+                    className="w-full bg-[#43563A] hover:bg-[#34452F] text-[#ffffff] rounded-full py-3.5 px-6 text-xs sm:text-sm font-extrabold transition-all duration-300 shadow-xl cursor-pointer flex items-center justify-center gap-2"
                   >
                     <span>Gửi yêu cầu ngay</span>
                     <Send size={14} />
