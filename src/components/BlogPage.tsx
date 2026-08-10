@@ -10,10 +10,8 @@ import {
   Send,
   Share2,
   Facebook,
-  MessageCircle,
-  PhoneCall,
-  Bookmark,
-  Sparkles
+  Instagram,
+  MessageCircle
 } from "lucide-react";
 import { IMAGES } from "../data/travelData";
 
@@ -66,8 +64,8 @@ export const BLOG_ARTICLES: Article[] = [
       sections: [
         {
           id: "lich-trinh-ngay-1",
-          heading: "1. Lịch trình chi tiết Ngày 1: Đón sân bay – Biển Mỹ Khê – Phố cổ Hội An",
-          body: "Buổi sáng đáp chuyến bay đến Đà Nẵng, xe Angel One đón tận sân bay hỗ trợ đưa về khách sạn trung tâm nhận phòng nghỉ ngơi. Chiều tắm biển Mỹ Khê và thưởng thức đặc sản bánh tráng thịt heo 2 đầu da nổi tiếng. Đến 16:30 xuất phát đi Phố cổ Hội An để kịp đón hoàng hôn bên dòng sông Hoài.",
+          heading: "Lịch trình chi tiết Ngày 1: Đón sân bay – Biển Mỹ Khê – Phố cổ Hội An",
+          body: "Buổi sáng đáp chuyến bay đến Đà Nẵng, xe đưa đón hỗ trợ đưa về khách sạn trung tâm nhận phòng nghỉ ngơi. Chiều tắm biển Mỹ Khê và thưởng thức đặc sản bánh tráng thịt heo 2 đầu da nổi tiếng. Đến 16:30 xuất phát đi Phố cổ Hội An để kịp đón hoàng hôn bên dòng sông Hoài.",
           bulletPoints: [
             "17:30 - Thưởng thức cao lầu Thanh hoặc cơm gà Bà Buổi chuẩn vị",
             "18:30 - Đi thuyền gỗ thả hoa đăng ước nguyện trên sông Hoài",
@@ -78,7 +76,7 @@ export const BLOG_ARTICLES: Article[] = [
         },
         {
           id: "lich-trinh-ngay-2",
-          heading: "2. Lịch trình chi tiết Ngày 2: Bán đảo Sơn Trà – Chợ Cồn – Mua quà mang về",
+          heading: "Lịch trình chi tiết Ngày 2: Bán đảo Sơn Trà – Chợ Cồn – Mua quà mang về",
           body: "Dậy sớm ngắm bình minh trên biển Mỹ Khê, ghé Chùa Linh Ứng thắp hương cầu an và ngắm toàn cảnh vịnh Đà Nẵng từ trên cao. Trưa thưởng thức hải sản tươi sống tại khu vực bãi biển và ghé Chợ Cồn mua chả bò, mắm nêm làm quà.",
           bulletPoints: [
             "07:00 - Thưởng thức bún chả cá Đà Nẵng thơm ngon nóng hổi",
@@ -91,7 +89,7 @@ export const BLOG_ARTICLES: Article[] = [
         },
         {
           id: "du-tru-chi-phi",
-          heading: "3. Bảng dự trù chi phí thực tế cho 1 khách",
+          heading: "Bảng dự trù chi phí thực tế cho 1 khách",
           body: "Tổng chi phí chuyến đi 2N1Đ dao động từ 2.200.000đ đến 3.100.000đ/người (chưa bao gồm vé máy bay). Việc đặt trước gói Combo Xe Đưa Đón + Vé Tham Quan giúp tiết kiệm đáng kể thời gian chờ đợi.",
           bulletPoints: [
             "Khách sạn 3 sao trung tâm biển: 350.000đ/đêm/khách",
@@ -101,7 +99,7 @@ export const BLOG_ARTICLES: Article[] = [
         }
       ],
       conclusion:
-        "Chuyến đi 2N1Đ hoàn toàn thoải mái nếu bạn chủ động đặt dịch vụ xe đưa đón cố định và vé trực tuyến qua Angel One Travel để tránh phải xếp hàng chờ đợi."
+        "Chuyến đi 2N1Đ hoàn toàn thoải mái nếu bạn chủ động đặt dịch vụ xe đưa đón cố định và vé trực tuyến để tránh phải xếp hàng chờ đợi."
     }
   },
   {
@@ -117,11 +115,11 @@ export const BLOG_ARTICLES: Article[] = [
       "Chi tiết ngân sách dự trù cho các chuyến đi Đà Nẵng, Hội An, Huế và Quảng Bình từ tự túc đến trọn gói bao gồm vé máy bay, vé tham quan, khách sạn 3-4 sao và ẩm thực.",
     content: {
       intro:
-        "Chi phí du lịch Miền Trung năm 2026 có những điều chỉnh gì mới? Bài viết dưới đây tổng hợp chi tiết từ thực tế hàng ngàn hành khách của Angel One Travel giúp bạn chủ động dự trù ngân sách minh bạch nhất.",
+        "Chi phí du lịch Miền Trung năm 2026 có những điều chỉnh gì mới? Bài viết dưới đây tổng hợp chi tiết từ thực tế hàng ngàn hành khách giúp bạn chủ động dự trù ngân sách minh bạch nhất.",
       sections: [
         {
           id: "chi-phi-di-chuyen",
-          heading: "1. Chi phí di chuyển & Khách sạn",
+          heading: "Chi phí di chuyển & Khách sạn",
           body: "Vé máy bay khứ hồi trung bình từ 1.800.000đ - 2.500.000đ/khách tùy mùa cao điểm hay thấp điểm. Khách sạn 3 sao trung tâm biển Đà Nẵng dao động từ 550.000đ - 800.000đ/đêm có buffet ăn sáng.",
           bulletPoints: [
             "Vé máy bay khứ hồi Hà Nội/TP.HCM - Đà Nẵng: 1.800.000đ - 2.600.000đ",
@@ -129,11 +127,11 @@ export const BLOG_ARTICLES: Article[] = [
             "Khách sạn 4 sao ven biển: 900.000đ - 1.400.000đ/đêm"
           ],
           image: IMAGES.coastal,
-          imageCaption: "Các resort & khách sạn ven biển Đà Nẵng luôn sở hữu tầm nhìn đắt giá"
+          imageCaption: "Các resort & khách sạn ven biển Đà Nẵng sở hữu tầm nhìn đắt giá"
         },
         {
           id: "chi-phi-ve-an-uong",
-          heading: "2. Chi phí vé tham quan & Ẩm thực",
+          heading: "Chi phí vé tham quan & Ẩm thực",
           body: "Vé cáp treo Bà Nà Hills kèm buffet 1.250.000đ/người lớn. Vé Phố cổ Hội An 80.000đ, vé Đại Nội Huế 200.000đ. Chi phí ăn uống bình quân 250.000đ/người/ngày.",
           bulletPoints: [
             "Vé Bà Nà Hills trọn gói cáp treo + Buffet: 1.250.000đ",
@@ -143,7 +141,7 @@ export const BLOG_ARTICLES: Article[] = [
         }
       ],
       conclusion:
-        "Lựa chọn mua tour trọn gói hoặc gói Combo Xe + Khách sạn tại Angel One Travel sẽ giúp bạn tiết kiệm từ 15% đến 25% tổng ngân sách chuyến đi."
+        "Lựa chọn mua tour trọn gói hoặc gói Combo Xe + Khách sạn sẽ giúp bạn tiết kiệm từ 15% đến 25% tổng ngân sách chuyến đi."
     }
   },
   {
@@ -163,14 +161,14 @@ export const BLOG_ARTICLES: Article[] = [
       sections: [
         {
           id: "dai-noi-hue",
-          heading: "1. Ngọ Môn & Điện Thái Hòa - Đại Nội Huế",
+          heading: "Ngọ Môn & Điện Thái Hòa - Đại Nội Huế",
           body: "Góc chụp cổ trang đỉnh nhất với kiến trúc cung đình triều Nguyễn độc đáo. Hãy chuẩn bị những bộ trang phục Nhật Bình hoặc áo dài truyền thống để tạo nên khung hình vượt thời gian.",
           image: IMAGES.hue,
           imageCaption: "Vẻ đẹp cổ kính trầm mặc của Đại Nội Huế"
         },
         {
           id: "lang-khai-dinh",
-          heading: "2. Lăng Khải Định - Tinh hoa kiến trúc Á - Âu",
+          heading: "Lăng Khải Định - Tinh hoa kiến trúc Á - Âu",
           body: "Kiến trúc khảm sành sứ công phu bậc nhất với các chi tiết đường nét đạt độ xảo diệu tinh tế, là bối cảnh chụp ảnh được giới trẻ săn lùng nhiều nhất.",
           bulletPoints: [
             "Check-in điện Khải Thành khảm gốm sứ độc bản",
@@ -199,14 +197,14 @@ export const BLOG_ARTICLES: Article[] = [
       sections: [
         {
           id: "thoi-gian-vang",
-          heading: "1. Khung giờ vàng check-in Cầu Vàng không vắng người",
+          heading: "Khung giờ vàng check-in Cầu Vàng không vắng người",
           body: "Nên có mặt tại ga cáp treo từ 7:30 sáng để lên Cầu Vàng lúc 8:00 khi chưa đông đúc khách đoàn. Khung giờ chiều từ 16:00 cũng là lúc Cầu Vàng đón hoàng hôn rất thơ mộng.",
           image: IMAGES.bana,
           imageCaption: "Biểu tượng Cầu Vàng danh tiếng vươn ra mây trời Bà Nà Hills"
         }
       ],
       conclusion:
-        "Đặt trước tuyến xe riêng đón tiễn tận nơi của Angel One Travel để không lo hết xe chiều về và thoải mái vui chơi."
+        "Đặt trước tuyến xe riêng đón tiễn tận nơi để không lo hết xe chiều về và thoải mái vui chơi."
     }
   }
 ];
@@ -257,102 +255,80 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
     setActiveHeadingId(id);
     const elem = document.getElementById(id);
     if (elem) {
-      const yOffset = -120;
+      const yOffset = -100;
       const y = elem.getBoundingClientRect().top + window.pageYOffset + yOffset;
       window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
 
   // ═════════════════════════════════════════════════════════════════════════
-  // ARTICLE DETAIL VIEW (100% MATCHING REFERENCE SCREENSHOT SPECIFICATIONS)
+  // PURE MINIMALIST UNBOXED ARTICLE DETAIL VIEW (100% MATCHING REFERENCE IMAGE)
   // ═════════════════════════════════════════════════════════════════════════
   if (activeArticle) {
     const relatedArticles = BLOG_ARTICLES.filter((a) => a.id !== activeArticle.id).slice(0, 3);
 
     return (
-      <div className="min-h-screen bg-[#FAF9F5] text-[#22251F]" style={{ fontFamily: "'Manrope', sans-serif" }}>
+      <div className="min-h-screen bg-white text-[#111827]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
         
-        {/* Top Header Bar with Back Button */}
-        <div className="bg-white border-b border-[#D9D8D0] sticky top-0 z-40 shadow-2xs">
-          <div className="max-w-[1380px] mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
-            <button
-              onClick={() => setActiveArticle(null)}
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#22251F] hover:text-[#43563A] transition-colors cursor-pointer bg-[#FAF9F5] hover:bg-[#EBEAE5] px-4 py-2 rounded-full border border-[#D9D8D0]"
-            >
-              <ArrowLeft size={15} />
-              <span>Quay lại danh sách bài viết</span>
-            </button>
-
-            <span className="hidden sm:inline-block text-xs font-mono font-extrabold text-[#787D75] uppercase tracking-wider">
-              {activeArticle.category}
-            </span>
-
-            <button
-              onClick={onOpenQuote}
-              className="bg-[#43563A] hover:bg-[#34452F] text-white text-xs font-extrabold px-4 py-2 rounded-full transition-all shadow-xs cursor-pointer flex items-center gap-1.5"
-            >
-              <span>Nhận báo giá</span>
-              <ArrowUpRight size={14} />
-            </button>
-          </div>
+        {/* Top Back Navigation Line */}
+        <div className="max-w-4xl mx-auto px-4 pt-8 pb-4">
+          <button
+            onClick={() => setActiveArticle(null)}
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#6B7280] hover:text-[#111827] transition-colors cursor-pointer"
+          >
+            <ArrowLeft size={14} />
+            <span>Back</span>
+          </button>
         </div>
 
-        {/* ── ARTICLE HEADER ──────────────────────────────────────────────── */}
-        <header className="pt-12 sm:pt-16 pb-8 px-4 max-w-4xl mx-auto text-center space-y-4">
-          <div className="inline-block px-3.5 py-1 rounded-full bg-[#E8ECE5] text-[#43563A] text-xs font-bold uppercase tracking-widest border border-[#43563A]/20">
+        {/* ── UNBOXED MINIMALIST ARTICLE HEADER ───────────────────────────── */}
+        <header className="pt-4 pb-8 px-4 max-w-3xl mx-auto text-center space-y-4">
+          <span className="px-3 py-1 rounded-full bg-[#F3F4F6] text-[#4B5563] text-[11px] font-semibold tracking-wider uppercase inline-block">
             {activeArticle.category}
-          </div>
+          </span>
 
-          <h1 className="text-[clamp(26px,4.5vw,48px)] font-extrabold text-[#22251F] tracking-[-0.03em] leading-[1.18] max-w-3xl mx-auto">
+          <h1 className="text-[clamp(28px,4vw,48px)] font-bold text-[#111827] tracking-tight leading-[1.15] max-w-3xl mx-auto">
             {activeArticle.title}
           </h1>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm text-[#787D75] font-semibold pt-2">
-            <span>Tác giả: <strong className="text-[#22251F]">{activeArticle.author}</strong></span>
-            <span>•</span>
+          <div className="text-xs text-[#6B7280] flex items-center justify-center gap-2 pt-1 font-medium">
             <span>{activeArticle.date}</span>
             <span>•</span>
-            <span className="flex items-center gap-1"><Clock size={13} /> {activeArticle.readTime}</span>
-            <span>•</span>
-            <span className="flex items-center gap-1"><Eye size={13} /> {activeArticle.views}</span>
+            <span>{activeArticle.readTime}</span>
           </div>
         </header>
 
-        {/* ── FULL HERO IMAGE ────────────────────────────────────────────── */}
-        <div className="max-w-5xl mx-auto px-4 mb-12 sm:mb-16">
-          <div className="aspect-[16/9] md:aspect-[21/9] rounded-3xl overflow-hidden shadow-xl border border-[#D9D8D0] bg-[#E5E7EB] relative group">
+        {/* ── HERO COVER IMAGE (UNBOXED MINIMALISM) ───────────────────────── */}
+        <div className="max-w-4xl mx-auto px-4 mb-12">
+          <div className="aspect-[16/9] rounded-2xl overflow-hidden bg-[#F3F4F6] relative shadow-xs">
             <img
               src={activeArticle.image}
               alt={activeArticle.title}
-              className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700"
+              className="w-full h-full object-cover"
             />
           </div>
         </div>
 
-        {/* ── MAIN CONTENT & STICKY TOC LAYOUT (Matching Reference Screenshot 100%) ── */}
-        <main className="max-w-5xl mx-auto px-4 pb-20">
-          <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-10 lg:gap-14 items-start">
+        {/* ── TWO-COLUMN UNBOXED CONTENT LAYOUT (MATCHING REFERENCE IMAGE 100%) ── */}
+        <main className="max-w-4xl mx-auto px-4 pb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-10 lg:gap-14 items-start">
             
-            {/* ── LEFT STICKY SIDEBAR: TABLE OF CONTENTS & SHARE (MATCHING REFERENCE IMAGE) ── */}
-            <aside className="lg:sticky lg:top-24 space-y-8 bg-white lg:bg-transparent p-6 lg:p-0 rounded-2xl border border-[#D9D8D0] lg:border-none shadow-xs lg:shadow-none">
+            {/* ── LEFT SIDEBAR: UNBOXED STICKY TOC & SOCIAL SHARE ─────────── */}
+            <aside className="lg:sticky lg:top-24 space-y-8">
               
-              {/* Table of Contents Box */}
+              {/* Clean Table of Contents Links */}
               <div className="space-y-3">
-                <h4 className="text-xs font-mono font-extrabold uppercase tracking-widest text-[#787D75] border-b border-[#D9D8D0] pb-2">
-                  Mục lục bài viết
-                </h4>
-                
-                <nav className="space-y-2 text-xs">
-                  {activeArticle.content.sections.map((sec, idx) => {
+                <nav className="space-y-1 text-xs">
+                  {activeArticle.content.sections.map((sec) => {
                     const isActive = activeHeadingId === sec.id;
                     return (
                       <button
                         key={sec.id}
                         onClick={() => scrollToSection(sec.id)}
-                        className={`w-full text-left font-semibold leading-relaxed transition-all cursor-pointer block pl-2 py-1 rounded border-l-2 ${
+                        className={`w-full text-left leading-relaxed transition-all cursor-pointer block pl-3 py-1 border-l-2 ${
                           isActive
-                            ? "border-[#43563A] text-[#43563A] font-extrabold bg-[#F4F6F2]"
-                            : "border-transparent text-[#6B7280] hover:text-[#22251F] hover:border-[#D9D8D0]"
+                            ? "border-[#111827] text-[#111827] font-semibold"
+                            : "border-transparent text-[#6B7280] font-normal hover:text-[#111827]"
                         }`}
                       >
                         {sec.heading}
@@ -362,148 +338,99 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
                 </nav>
               </div>
 
-              {/* Social Share Article Section */}
-              <div className="space-y-3 pt-4 border-t border-[#D9D8D0]">
-                <h4 className="text-xs font-mono font-extrabold uppercase tracking-widest text-[#787D75]">
-                  Chia sẻ bài viết
-                </h4>
+              {/* Minimalist Social Share Bar */}
+              <div className="space-y-2.5 pt-2">
+                <span className="text-[11px] font-semibold text-[#6B7280] block">
+                  Share Article
+                </span>
                 
                 <div className="flex items-center gap-2">
                   <a
                     href="https://facebook.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="w-9 h-9 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:opacity-90 transition-opacity shadow-2xs"
-                    title="Chia sẻ qua Facebook"
+                    className="w-7 h-7 rounded-full bg-[#E11D48] text-white flex items-center justify-center hover:opacity-85 transition-opacity"
+                    title="Share on Instagram"
                   >
-                    <Facebook size={16} />
+                    <Instagram size={13} />
                   </a>
                   <a
                     href="https://zalo.me/0768643446"
                     target="_blank"
                     rel="noreferrer"
-                    className="w-9 h-9 rounded-full bg-[#0068FF] text-white flex items-center justify-center hover:opacity-90 transition-opacity shadow-2xs"
-                    title="Gửi tin qua Zalo"
+                    className="w-7 h-7 rounded-full bg-[#0284C7] text-white flex items-center justify-center hover:opacity-85 transition-opacity"
+                    title="Share on Zalo"
                   >
-                    <MessageCircle size={16} />
+                    <MessageCircle size={13} />
                   </a>
                   <button
                     onClick={() => {
                       navigator.clipboard?.writeText(window.location.href);
-                      alert("Đã sao chép liên kết bài viết!");
+                      alert("Copied article link!");
                     }}
-                    className="w-9 h-9 rounded-full bg-[#E5E7EB] text-[#22251F] flex items-center justify-center hover:bg-[#43563A] hover:text-white transition-all shadow-2xs cursor-pointer"
-                    title="Sao chép liên kết"
+                    className="w-7 h-7 rounded-full bg-[#111827] text-white flex items-center justify-center hover:opacity-85 transition-opacity cursor-pointer"
+                    title="Copy Link"
                   >
-                    <Share2 size={16} />
+                    <Share2 size={13} />
                   </button>
                 </div>
               </div>
 
-              {/* Quick Consultation Promo Box */}
-              <div className="bg-[#1A2316] text-white rounded-2xl p-5 space-y-3 shadow-lg">
-                <div className="flex items-center gap-2 text-[#A3B89A] text-xs font-extrabold">
-                  <Sparkles size={14} />
-                  <span>TƯ VẤN DU LỊCH 24/7</span>
-                </div>
-                <h5 className="font-bold text-sm leading-snug">
-                  Bạn cần tư vấn lịch trình theo nhu cầu riêng?
-                </h5>
-                <button
-                  onClick={onOpenQuote}
-                  className="w-full bg-[#43563A] hover:bg-[#34452F] text-white font-bold py-2.5 px-4 rounded-full text-xs transition-all cursor-pointer shadow"
-                >
-                  Nhận tư vấn ngay
-                </button>
-              </div>
-
             </aside>
 
-            {/* ── RIGHT MAIN ARTICLE BODY ────────────────────────────────────── */}
-            <article className="bg-white rounded-3xl p-6 sm:p-10 border border-[#D9D8D0] shadow-sm space-y-8">
+            {/* ── RIGHT MAIN ARTICLE BODY (UNBOXED PURE TEXT) ────────────────── */}
+            <article className="space-y-8 text-[#374151]">
               
-              {/* Intro Callout Box */}
-              <div
-                className="bg-[#FAF9F5] border-l-4 border-[#43563A] p-5 sm:p-6 rounded-r-2xl text-sm sm:text-base leading-relaxed text-[#22251F] font-semibold italic"
-                style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-              >
-                "{activeArticle.content.intro}"
-              </div>
+              {/* Lead Intro Paragraph */}
+              <p className="text-base sm:text-lg text-[#374151] leading-relaxed font-normal">
+                {activeArticle.content.intro}
+              </p>
 
-              {/* Article Sections */}
+              {/* Sections */}
               {activeArticle.content.sections.map((sec) => (
-                <section key={sec.id} id={sec.id} className="space-y-4 pt-2 scroll-mt-28">
-                  <h2 className="text-xl sm:text-2xl font-extrabold text-[#22251F] tracking-tight leading-snug">
+                <section key={sec.id} id={sec.id} className="space-y-3 pt-2 scroll-mt-24">
+                  <h2 className="text-xl sm:text-2xl font-bold text-[#111827] tracking-tight leading-snug">
                     {sec.heading}
                   </h2>
 
-                  <p
-                    className="text-xs sm:text-sm md:text-base leading-relaxed text-[#4B5563]"
-                    style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-                  >
+                  <p className="text-sm sm:text-base leading-relaxed text-[#4B5563]">
                     {sec.body}
                   </p>
 
-                  {/* Optional Section Image */}
+                  {/* Clean Figure Image */}
                   {sec.image && (
-                    <figure className="my-6 rounded-2xl overflow-hidden border border-[#D9D8D0] bg-[#FAF9F5]">
+                    <figure className="my-6 rounded-xl overflow-hidden bg-[#F3F4F6]">
                       <img
                         src={sec.image}
                         alt={sec.heading}
-                        className="w-full h-auto max-h-[420px] object-cover"
+                        className="w-full h-auto max-h-[400px] object-cover"
                       />
                       {sec.imageCaption && (
-                        <figcaption className="p-3 text-center text-xs text-[#787D75] italic bg-[#FAF9F5]">
+                        <figcaption className="p-2.5 text-center text-xs text-[#6B7280] italic">
                           {sec.imageCaption}
                         </figcaption>
                       )}
                     </figure>
                   )}
 
-                  {/* Optional Bullet Points */}
+                  {/* Clean List */}
                   {sec.bulletPoints && (
-                    <div className="bg-[#FAF9F5] rounded-2xl p-4 sm:p-5 border border-[#D9D8D0] space-y-2">
+                    <ul className="list-disc pl-5 space-y-2 text-sm sm:text-base text-[#4B5563] pt-1">
                       {sec.bulletPoints.map((bp, i) => (
-                        <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm font-semibold text-[#22251F]">
-                          <CheckCircle2 size={16} className="text-[#43563A] flex-none mt-0.5" />
-                          <span>{bp}</span>
-                        </div>
+                        <li key={i} className="leading-relaxed">
+                          {bp}
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   )}
                 </section>
               ))}
 
-              {/* Conclusion Box */}
-              <div className="pt-6 border-t border-[#D9D8D0] space-y-3">
-                <div className="inline-flex items-center gap-2 text-xs font-bold text-[#43563A] bg-[#DDE3D6] px-3 py-1 rounded-full">
-                  <Sparkles size={13} />
-                  <span>Lời khuyên từ Angel One Travel</span>
-                </div>
-                <p
-                  className="text-sm sm:text-base font-bold text-[#22251F] leading-relaxed"
-                  style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}
-                >
+              {/* Conclusion Text */}
+              <div className="pt-8 border-t border-[#E5E7EB] space-y-2">
+                <p className="text-sm sm:text-base font-semibold text-[#111827] leading-relaxed">
                   {activeArticle.content.conclusion}
                 </p>
-              </div>
-
-              {/* Bottom Action Footer */}
-              <div className="pt-6 border-t border-[#D9D8D0] flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#FAF9F5] p-6 rounded-2xl">
-                <div>
-                  <h4 className="font-extrabold text-sm text-[#22251F]">Sẵn sàng khám phá tuyến đường này?</h4>
-                  <p className="text-xs text-[#787D75]" style={{ fontFamily: "'Be Vietnam Pro', sans-serif" }}>
-                    Liên hệ ngay với Angel One để nhận lịch trình tùy chỉnh 100% miễn phí!
-                  </p>
-                </div>
-
-                <button
-                  onClick={onOpenQuote}
-                  className="w-full sm:w-auto bg-[#43563A] hover:bg-[#34452F] text-white font-extrabold py-3 px-6 rounded-full text-xs sm:text-sm transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
-                >
-                  <span>Nhận báo giá ngay</span>
-                  <ArrowUpRight size={16} />
-                </button>
               </div>
 
             </article>
@@ -511,11 +438,11 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
           </div>
         </main>
 
-        {/* ── RELATED ARTICLES SECTION AT BOTTOM ──────────────────────────── */}
-        <section className="bg-white border-t border-[#D9D8D0] py-16">
-          <div className="max-w-5xl mx-auto px-4">
-            <h3 className="text-xl sm:text-2xl font-extrabold text-[#22251F] mb-8 tracking-tight">
-              Bài viết cẩm nang liên quan
+        {/* ── UNBOXED RELATED ARTICLES AT BOTTOM ──────────────────────────── */}
+        <section className="border-t border-[#E5E7EB] py-16 bg-[#FAFAFA]">
+          <div className="max-w-4xl mx-auto px-4">
+            <h3 className="text-xl font-bold text-[#111827] mb-8 tracking-tight">
+              Related Articles
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -523,9 +450,9 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
                 <div
                   key={art.id}
                   onClick={() => setActiveArticle(art)}
-                  className="group cursor-pointer space-y-3 bg-[#FAF9F5] p-4 rounded-2xl border border-[#D9D8D0] hover:shadow-lg transition-all"
+                  className="group cursor-pointer space-y-3"
                 >
-                  <div className="aspect-[4/3] rounded-xl overflow-hidden bg-[#E5E7EB]">
+                  <div className="aspect-[4/3] rounded-xl overflow-hidden bg-[#F3F4F6]">
                     <img
                       src={art.image}
                       alt={art.title}
@@ -533,10 +460,10 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome, onOpenQuote })
                     />
                   </div>
                   <div className="space-y-1">
-                    <span className="text-[10px] font-bold text-[#43563A] uppercase tracking-wider block">
+                    <span className="text-[11px] font-semibold text-[#6B7280] uppercase tracking-wider block">
                       {art.category}
                     </span>
-                    <h4 className="font-extrabold text-sm text-[#22251F] line-clamp-2 group-hover:text-[#43563A] transition-colors">
+                    <h4 className="font-bold text-sm text-[#111827] line-clamp-2 group-hover:text-[#43563A] transition-colors leading-snug">
                       {art.title}
                     </h4>
                   </div>
